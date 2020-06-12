@@ -1,0 +1,22 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TestWPF.Controls">
+    
+    <Style TargetType="local:TaskbarPanel">
+        <Style.Resources>
+            <SolidColorBrush x:Key="Taskbar.Background.Color" Color="#B2000000" />
+        </Style.Resources>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:TaskbarPanel">
+                    <Border Height="50" CornerRadius="3" Background="{StaticResource Taskbar.Background.Color}"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
