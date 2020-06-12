@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace TestWPF.Controls
+namespace BetterShell.Controls
 {
     public class TaskbarPanel:ContentControl
     {
