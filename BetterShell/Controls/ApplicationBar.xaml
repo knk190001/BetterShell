@@ -5,10 +5,31 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:BetterShell.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="50" d:DesignWidth="300">
-    <local:TaskbarPanel>
-        <StackPanel Height="50">
-            
+             d:DesignHeight="50" d:DesignWidth="869">
+    <UserControl.Resources>
+        <local:TestData x:Key="TestData" />
+    </UserControl.Resources>
+    <local:TaskbarPanel Width="869">
+        <StackPanel Height="50" Orientation="Horizontal" Width="869">
+            <!-- <local:ApplicationBarIcon Icon="../edge-icon.png" /> -->
+            <ItemsControl DataContext="{StaticResource TestData}" ItemsSource="{Binding}" >
+                <ItemsControl.Template>
+                    <ControlTemplate TargetType="ItemsControl">
+                        <ItemsPresenter />
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:ApplicationBarIcon Icon="../edge-icon.png" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
     </local:TaskbarPanel>
+
 </UserControl>

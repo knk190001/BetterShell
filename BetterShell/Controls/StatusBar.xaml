@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="BetterShell.Controls.StatusBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:BetterShell.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="60" d:DesignWidth="215" HorizontalAlignment="Right">
+    <local:TaskbarPanel Width="215" VerticalAlignment="Center">
+        <StackPanel Width="192" Orientation="Horizontal"  >
+            <local:StatusBarIcon Icon="{StaticResource SystemTrayIconDrawingImage}" IconWidth="14"/>
+            <local:StatusBarIcon Icon="{StaticResource VolumeIconDrawingImage}" IconWidth="15"/>
+            <local:StatusBarIcon Icon="{StaticResource WifiIconDrawingImage}" IconWidth="14"/>
+            <local:StatusBarIcon Icon="{StaticResource BatteryIndicatorDrawingImage}" IconWidth="18"/>
+        </StackPanel>
+    </local:TaskbarPanel>
+</UserControl>

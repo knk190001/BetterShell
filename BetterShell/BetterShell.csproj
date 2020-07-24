@@ -64,6 +64,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\ApplicationBar.xaml" />
+    <Page Include="Controls\ApplicationBarIcon.xaml" />
+    <Page Include="Controls\StatusBar.xaml" />
+    <Page Include="Controls\StatusBarIcon.xaml" />
+    <Page Include="Controls\TaskbarDateTime.xaml" />
     <Page Include="Controls\TaskbarPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -82,11 +86,23 @@
     <Compile Include="Controls\ApplicationBar.xaml.cs">
       <DependentUpon>ApplicationBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ApplicationBarIcon.xaml.cs">
+      <DependentUpon>ApplicationBarIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatusBar.xaml.cs">
+      <DependentUpon>StatusBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatusBarIcon.xaml.cs">
+      <DependentUpon>StatusBarIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Taskbar.xaml.cs">
       <DependentUpon>Taskbar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TaskbarButton.cs">
       <DependentUpon>TaskbarButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TaskbarDateTime.xaml.cs">
+      <DependentUpon>TaskbarDateTime.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TaskbarPanel.cs">
       <DependentUpon>TaskbarPanel.xaml</DependentUpon>
@@ -129,6 +145,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="edge-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

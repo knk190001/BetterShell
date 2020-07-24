@@ -53,7 +53,7 @@
                                                             <Storyboard>
                                                                 <ParallelTimeline>
                                                                     <ThicknessAnimation
-                                                                        To="2"
+                                                                        To="2,2,2,2"
                                                                         Storyboard.TargetName="border"
                                                                         Storyboard.TargetProperty="BorderThickness"
                                                                         Duration="{StaticResource Button.MouseOver.TransitionDuration}" />

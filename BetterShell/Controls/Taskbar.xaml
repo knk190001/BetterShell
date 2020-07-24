@@ -15,7 +15,7 @@
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Width="18" Source="{DynamicResource SearchIconDrawingImage}"
                                            Margin="0,0,15,0" />
                                     <TextBlock Text="Type here to search"
@@ -34,9 +34,10 @@
                         <local:TaskbarButton Width="60" Margin="5,0,0,0">
                             <Image Width="20" Source="{DynamicResource MultitaskIconDrawingImage}" />
                         </local:TaskbarButton>
-                        <local:TaskbarPanel Width="869" Margin="5,0,0,0" />
-                        <local:TaskbarPanel Width="215" Margin="5,0,0,0" />
-                        <local:TaskbarPanel Width="200" Margin="5,0,0,0" />
+                        <local:ApplicationBar Margin="5,0,0,0" />
+                        <local:StatusBar Width="215" Margin="5,0,0,0" />
+                        <!--<local:TaskbarPanel Width="200" Margin="5,0,0,0" />-->
+                        <local:TaskbarDateTime />
                         <local:TaskbarButton Width="50" Margin="5,0,0,0">
                             <Image Width="20" Source="{DynamicResource CortanaIconDrawingImage}" />
                         </local:TaskbarButton>

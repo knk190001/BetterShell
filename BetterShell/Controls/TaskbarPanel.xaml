@@ -11,9 +11,10 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:TaskbarPanel">
                     <Border Height="50" CornerRadius="3" Background="{StaticResource Taskbar.Background.Color}"
-                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
-                        <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center" />
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalAlignment}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

@@ -8,7 +8,7 @@
                 <ResourceDictionary Source="Controls/TaskbarPanel.xaml"/>
                 <ResourceDictionary Source="Themes/Vectors.xaml"/>
                 <ResourceDictionary Source="Themes/Vectors.xaml"/>
-                <ResourceDictionary Source="Controls/TaskbarButton.xaml"/> 
+                <ResourceDictionary Source="Controls/TaskbarButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
