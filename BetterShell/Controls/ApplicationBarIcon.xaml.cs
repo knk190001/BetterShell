@@ -20,7 +20,6 @@ namespace BetterShell.Controls
         public ApplicationBarIcon()
         {
             InitializeComponent();
-            DataContext = this;
         }
     }
 }

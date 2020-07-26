@@ -16,8 +16,8 @@
         <ImageBrush ImageSource="background.jpg"/>
     </Window.Background>
 
-    <StackPanel VerticalAlignment="Bottom">
-        <controls:Taskbar/>
-    </StackPanel>
+    <Canvas>
+        <controls:Taskbar Height="60" Width="1920" Canvas.Bottom="0" Canvas.Left="0"/>
+    </Canvas>
     
 </Window>

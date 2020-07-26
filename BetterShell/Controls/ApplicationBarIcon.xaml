@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:BetterShell.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+            >
     <DockPanel Height="50" Width="55" Background="Transparent">
         <Grid DockPanel.Dock="Top">
             <Rectangle x:Name="Bg" Width="40" Height="46">
@@ -13,12 +14,12 @@
                     <SolidColorBrush Color="Transparent" />
                 </Rectangle.Fill>
             </Rectangle>
-            <Image x:Name="Image" Width="24"  Source="{Binding Icon}"/>
+            <Image Width="24"  Source="{Binding Icon}"/>
         </Grid>
-        <Rectangle x:Name="Accent" DockPanel.Dock="Bottom" Width="40" Height="4" Fill="#0694f3" />
+        <Rectangle x:Name="Accent" DockPanel.Dock="Bottom" Width="40" Height="3.5" Fill="#0694f3" />
     </DockPanel>
     <UserControl.Resources>
-        <Duration x:Key="ApplicationBarIcon.AnimationDuration">0:0:0.15</Duration>
+        <Duration x:Key="ApplicationBarIcon.AnimationDuration">0:0:0.05</Duration>
     </UserControl.Resources>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="UserControl.MouseEnter">
