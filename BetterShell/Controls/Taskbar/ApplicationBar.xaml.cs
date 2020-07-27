@@ -63,6 +63,7 @@ namespace BetterShell.Controls
                     Identifier = GetIdentifier(applications[i])
                 });
             }
+            
         }
 
         private static string GetIdentifier(Window application)

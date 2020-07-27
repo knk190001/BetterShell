@@ -1,0 +1,27 @@
+﻿<Window x:Class="BetterShell.WindowsMenu.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BetterShell.WindowsMenu"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        mc:Ignorable="d"
+        Title="Window1" Height="795" Width="885"
+        VerticalAlignment="Bottom">
+    <Window.Background>
+        <SolidColorBrush Opacity="0.0" Color="White"/>
+    </Window.Background>
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="795">
+        <Border Width="60" Height="750" Background="Black" Margin="5,0,0,0" CornerRadius="3" VerticalAlignment="Bottom"/>
+        <Border Width="320" Height="750" Background="Black" Margin="5,0,0,0" CornerRadius="3" VerticalAlignment="Bottom"/>
+        <StackPanel Height="795" Margin="5,0,0,0">
+            <Canvas Width="490" Height="155">
+                <Border Canvas.Top="45" Canvas.Left="0" Height="110" Width="490" Background="Black" CornerRadius="3"></Border>
+            </Canvas>
+            <Border Width="490" Height="205" Background="Black" Margin="0,5,0,0" CornerRadius="3"></Border>
+            <Border Width="490" Height="150" Background="Black" Margin="0,5,0,0" CornerRadius="3"></Border>
+            <Border Width="490" Height="270" Background="Black" Margin="0,5,0,0" CornerRadius="3"></Border>
+        </StackPanel>
+    </StackPanel>
+</Window>

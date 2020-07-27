@@ -96,18 +96,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\ApplicationBar.xaml" />
-    <Page Include="Controls\ApplicationBarIcon.xaml" />
-    <Page Include="Controls\StatusBar.xaml" />
-    <Page Include="Controls\StatusBarIcon.xaml" />
-    <Page Include="Controls\TaskbarDateTime.xaml" />
-    <Page Include="Controls\TaskbarPanel.xaml">
+    <Compile Include="StartMenu\StartMenu.xaml.cs">
+      <DependentUpon>StartMenu.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\Taskbar\ApplicationBar.xaml" />
+    <Page Include="Controls\Taskbar\ApplicationBarIcon.xaml" />
+    <Page Include="Controls\Taskbar\StatusBar.xaml" />
+    <Page Include="Controls\Taskbar\StatusBarIcon.xaml" />
+    <Page Include="Controls\Taskbar\TaskbarDateTime.xaml" />
+    <Page Include="Controls\Taskbar\TaskbarPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Taskbar.xaml" />
-    <Page Include="Controls\TaskbarButton.xaml" />
-    <Page Include="Controls\WindowsButton.xaml" />
+    <Page Include="Controls\Taskbar\Taskbar.xaml" />
+    <Page Include="Controls\Taskbar\TaskbarButton.xaml" />
+    <Page Include="Controls\Taskbar\WindowsButton.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -116,31 +119,31 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controls\ApplicationBar.xaml.cs">
+    <Compile Include="Controls\Taskbar\ApplicationBar.xaml.cs">
       <DependentUpon>ApplicationBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ApplicationBarIcon.xaml.cs">
+    <Compile Include="Controls\Taskbar\ApplicationBarIcon.xaml.cs">
       <DependentUpon>ApplicationBarIcon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\StatusBar.xaml.cs">
+    <Compile Include="Controls\Taskbar\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\StatusBarIcon.xaml.cs">
+    <Compile Include="Controls\Taskbar\StatusBarIcon.xaml.cs">
       <DependentUpon>StatusBarIcon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Taskbar.xaml.cs">
+    <Compile Include="Controls\Taskbar\Taskbar.xaml.cs">
       <DependentUpon>Taskbar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TaskbarButton.cs">
+    <Compile Include="Controls\Taskbar\TaskbarButton.cs">
       <DependentUpon>TaskbarButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TaskbarDateTime.xaml.cs">
+    <Compile Include="Controls\Taskbar\TaskbarDateTime.xaml.cs">
       <DependentUpon>TaskbarDateTime.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TaskbarPanel.cs">
+    <Compile Include="Controls\Taskbar\TaskbarPanel.cs">
       <DependentUpon>TaskbarPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WindowsButton.xaml.cs">
+    <Compile Include="Controls\Taskbar\WindowsButton.xaml.cs">
       <DependentUpon>WindowsButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
@@ -148,6 +151,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Themes\Vectors.xaml" />
+    <Page Include="StartMenu\StartMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -185,7 +192,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\Taskbar" />
+    <Folder Include="StartMenu\Controls" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
