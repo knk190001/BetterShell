@@ -8,42 +8,42 @@
              d:DesignHeight="60"
              d:DesignWidth="1920">
     <StackPanel Height="60" Orientation="Horizontal">
-                        <local:WindowsButton Margin="5,0,0,0" />
-                        <local:TaskbarPanel Width="360" Margin="5,0,0,0">
-                            <Grid Width="314">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Image Width="18" Source="{DynamicResource SearchIconDrawingImage}"
-                                           Margin="0,0,15,0" />
-                                    <TextBlock Text="Type here to search"
-                                               Width="137"
-                                               Foreground="White"
-                                               FontSize="14.5" />
-                                </StackPanel>
-                                <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
-                                    <Image Width="13.5" Source="{DynamicResource MicIconDrawingImage}"
-                                           Margin="0,0,23,0" SnapsToDevicePixels="False" />
-                                    <Image Width="17.5" Source="{DynamicResource ScreenshotIconDrawingImage}"
-                                           Margin="0,0,23,0" SnapsToDevicePixels="False" />
-                                </StackPanel>
-                            </Grid>
-                        </local:TaskbarPanel>
-                        <local:TaskbarButton Width="60" Margin="5,0,0,0">
-                            <Image Width="20" Source="{DynamicResource MultitaskIconDrawingImage}" />
-                        </local:TaskbarButton>
-                        <local:ApplicationBar Margin="5,0,0,0" />
-                        <local:StatusBar Width="215" Margin="5,0,0,0" />
-                        <!--<local:TaskbarPanel Width="200" Margin="5,0,0,0" />-->
-                        <local:TaskbarDateTime />
-                        <local:TaskbarButton Width="50" Margin="5,0,0,0">
-                            <Image Width="20" Source="{DynamicResource CortanaIconDrawingImage}" />
-                        </local:TaskbarButton>
-                        <local:TaskbarButton Width="50" Margin="5,0,0,0">
-                            <Image Width="20" Source="{DynamicResource NotificationIconDrawingImage}" />
-                        </local:TaskbarButton>
-                        <local:TaskbarPanel Width="6" Margin="5,0,0,0" />
-                    </StackPanel>
+        <local:WindowsButton Margin="5,0,0,0" />
+        <Border Width="360" Margin="5,0,0,0" Style="{StaticResource DefaultPanel.Style}">
+            <Grid Width="314">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image Width="18" Source="{DynamicResource SearchIconDrawingImage}"
+                           Margin="0,0,15,0" />
+                    <TextBlock Text="Type here to search"
+                               Width="137"
+                               Foreground="White"
+                               FontSize="14.5" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <Image Width="13.5" Source="{DynamicResource MicIconDrawingImage}"
+                           Margin="0,0,23,0" SnapsToDevicePixels="False" />
+                    <Image Width="17.5" Source="{DynamicResource ScreenshotIconDrawingImage}"
+                           Margin="0,0,23,0" SnapsToDevicePixels="False" />
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Button Margin="5,0,0,0" Style="{StaticResource Taskbar.Button.Style}">
+            <Image Width="20" Source="{DynamicResource MultitaskIconDrawingImage}" />
+        </Button>
+        <local:ApplicationBar Margin="5,0,0,0" />
+        <local:StatusBar Width="215" Margin="5,0,0,0" />
+        <!--<local:TaskbarPanel Width="200" Margin="5,0,0,0" />-->
+        <local:TaskbarDateTime />
+        <Button Width="50" Margin="5,0,0,0" Style="{StaticResource Taskbar.Button.Style}">
+            <Image Width="20" Source="{DynamicResource CortanaIconDrawingImage}" />
+        </Button>
+        <Button Width="50" Margin="5,0,0,0" Style="{StaticResource Taskbar.Button.Style}">
+            <Image Width="20" Source="{DynamicResource NotificationIconDrawingImage}" />
+        </Button>
+        <Border Width="6" Margin="5,0,0,0" Style="{StaticResource DefaultPanel.Style}" />
+    </StackPanel>
 </UserControl>

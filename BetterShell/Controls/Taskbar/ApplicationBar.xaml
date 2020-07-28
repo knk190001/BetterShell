@@ -8,7 +8,7 @@
              d:DesignHeight="50" d:DesignWidth="869" 
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     
-    <local:TaskbarPanel Width="869">
+    <Border Width="869" Style="{StaticResource DefaultPanel.Style}">
         <StackPanel Height="50" Orientation="Horizontal" Width="869">
             <!-- <local:ApplicationBarIcon Icon="../edge-icon.png" /> -->
             <ItemsControl x:Name="Apps" ItemsSource="{Binding Applications}">
@@ -26,6 +26,6 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
-    </local:TaskbarPanel>
+    </Border>
 
 </UserControl>

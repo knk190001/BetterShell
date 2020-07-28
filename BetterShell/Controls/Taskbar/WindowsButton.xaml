@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:BetterShell.Controls"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="60">
     <UserControl.Resources>
@@ -14,8 +13,7 @@
         <Color x:Key="WindowsButton.MouseOver.BottomRightColor">#009df0</Color>
         <PowerEase x:Key="WindowsButton.Ease" />
     </UserControl.Resources>
-    <local:TaskbarButton Width="60">
-    <!-- <local:TaskbarButton Padding="20,0,20,0" Width="60"> -->
+    <Button Style="{StaticResource Taskbar.Button.Style}"  Click="StartMenu_OnClick" >
         <Image Width="20">
             <Image.Source>
             <DrawingImage>
@@ -50,7 +48,7 @@
                 </DrawingImage>
                 </Image.Source>
         </Image>
-    </local:TaskbarButton>
+    </Button>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Button.MouseEnter">
             <BeginStoryboard>

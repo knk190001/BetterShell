@@ -1,0 +1,14 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:BetterShell.Controls">
+    
+    <Style TargetType="Border" x:Key="DefaultPanel.Style">
+        <Style.Resources>
+            <SolidColorBrush x:Key="Panel.Background.Color" Color="#B2000000" />
+        </Style.Resources>
+        <Setter Property="Background"  Value="{StaticResource Panel.Background.Color}"/>
+        <Setter Property="CornerRadius" Value="3" />
+        <Setter Property="Height" Value="50"/>
+    </Style>
+</ResourceDictionary>

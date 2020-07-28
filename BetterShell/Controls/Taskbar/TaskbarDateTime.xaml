@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BetterShell.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <local:TaskbarPanel Width="200" Margin="5,0,0,0">
+    <Border Width="200" Margin="5,0,0,0" Style="{StaticResource DefaultPanel.Style}">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock FontSize="14" Foreground="White" Margin="0,0,13,0" Name="Date">
                 Mon, Oct 21
@@ -15,5 +15,5 @@
                 8:15 AM
             </TextBlock>
         </StackPanel>
-    </local:TaskbarPanel>
+    </Border>
 </UserControl>

@@ -5,10 +5,10 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Controls/TaskbarPanel.xaml"/>
-                <ResourceDictionary Source="Themes/Vectors.xaml"/>
-                <ResourceDictionary Source="Themes/Vectors.xaml"/>
-                <ResourceDictionary Source="Controls/TaskbarButton.xaml"/>
+                <ResourceDictionary Source="Resources/DefaultPanel.xaml"/>
+                <ResourceDictionary Source="Resources/Vectors.xaml"/>
+                <ResourceDictionary Source="Resources/Vectors.xaml"/>
+                <ResourceDictionary Source="Controls/Taskbar/TaskbarButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

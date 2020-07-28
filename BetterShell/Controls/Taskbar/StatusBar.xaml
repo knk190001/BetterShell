@@ -6,12 +6,12 @@
              xmlns:local="clr-namespace:BetterShell.Controls"
              mc:Ignorable="d"
              d:DesignHeight="60" d:DesignWidth="215" HorizontalAlignment="Right">
-    <local:TaskbarPanel Width="215" VerticalAlignment="Center">
+    <Border Width="215" VerticalAlignment="Center" Style="{StaticResource DefaultPanel.Style}">
         <StackPanel Width="192" Orientation="Horizontal"  >
             <local:StatusBarIcon Icon="{StaticResource SystemTrayIconDrawingImage}" IconWidth="14"/>
             <local:StatusBarIcon Icon="{StaticResource VolumeIconDrawingImage}" IconWidth="15"/>
             <local:StatusBarIcon Icon="{StaticResource WifiIconDrawingImage}" IconWidth="14"/>
             <local:StatusBarIcon Icon="{StaticResource BatteryIndicatorDrawingImage}" IconWidth="18"/>
         </StackPanel>
-    </local:TaskbarPanel>
+    </Border>
 </UserControl>
