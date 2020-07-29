@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:BetterShell.StartMenu.Controls"
         ResizeMode="NoResize"
         WindowStyle="None"
         mc:Ignorable="d"
@@ -14,8 +15,36 @@
         <SolidColorBrush Opacity="0.0" Color="White"/>
     </Window.Background>
     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="795">
-        <Border Width="60" Height="750" Background="Black" Margin="5,0,0,0" CornerRadius="3" VerticalAlignment="Bottom"/>
-        <Border Width="320" Height="750" Background="Black" Margin="5,0,0,0" CornerRadius="3" VerticalAlignment="Bottom"/>
+        <Border Width="60" Height="750" Margin="5,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource DefaultPanel.Style}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
+                    <Button Style="{StaticResource Panel.Button.Style}" Height="60">
+                        <Image Source="{StaticResource ExplorerIconDrawingImage}" Width="16"/>
+                    </Button>
+                    <Button Style="{StaticResource Panel.Button.Style}" Height="60">
+                        <Image Source="{StaticResource SettingsIconDrawingImage}" Width="16"/>
+                    </Button>
+                    <Button Style="{StaticResource Panel.Button.Style}" Height="60">
+                        <Image Source="{StaticResource PowerIconDrawingImage}" Width="16"/>
+                    </Button>
+                </StackPanel>
+                <Button Grid.Row="0" Style="{StaticResource Panel.Button.Style}" Height="50" VerticalAlignment="Top">
+                    <Image Source="{StaticResource HamburgerIconDrawingImage}" Width="18" SnapsToDevicePixels="True"/>
+                </Button>
+            </Grid>
+        </Border>
+        <!--<Border Width="320" Height="750" Margin="5,0,0,0" CornerRadius="3" VerticalAlignment="Bottom" Style="{StaticResource DefaultPanel.Style}">
+            <StackPanel>
+                <Button Height="55" Style="{StaticResource Panel.Button.Style}">
+                    <TextBlock HorizontalAlignment="Left" FontSize="22" Width="270" Foreground="White">A</TextBlock>
+                </Button>
+            </StackPanel>
+        </Border>-->
+        <controls:AppList />
         <StackPanel Height="795" Margin="5,0,0,0">
             <Canvas Width="490" Height="155">
                 <Border Canvas.Top="45" Canvas.Left="0" Height="110" Width="490" Background="Black" CornerRadius="3" />

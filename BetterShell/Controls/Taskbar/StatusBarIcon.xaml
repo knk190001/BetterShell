@@ -13,38 +13,7 @@
         <Duration x:Key="AnimDuration">0:0:0.25</Duration>
     </UserControl.Resources>
 
-    <Button Width="48" Height="50" BorderThickness="0" Background="#00000000">
-        <Button.Template>
-            <ControlTemplate TargetType="{x:Type Button}">
-                <Border x:Name="Border" Background="{TemplateBinding Background}">
-                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Border>
-                <ControlTemplate.Triggers>
-                    <EventTrigger RoutedEvent="Mouse.MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation
-                                    To="{StaticResource HoverBackground}"
-                                    Storyboard.TargetName="Border"
-                                    Storyboard.TargetProperty="Background.Color"
-                                    Duration="{StaticResource AnimDuration}"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="Mouse.MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation
-                                    To="{StaticResource Background}"
-                                    Storyboard.TargetName="Border"
-                                    Storyboard.TargetProperty="Background.Color"
-                                    Duration="{StaticResource AnimDuration}"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
-        </Button.Template>
+    <Button Width="48" Height="50" BorderThickness="0" Background="#00000000" Style="{StaticResource Panel.Button.Style}">
         <Image Width="{Binding IconWidth}" Source="{Binding Icon}" />
     </Button>
 </UserControl>

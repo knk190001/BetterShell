@@ -31,17 +31,17 @@
                 </StackPanel>
             </Grid>
         </Border>
-        <Button Margin="5,0,0,0" Style="{StaticResource Taskbar.Button.Style}">
+        <Button Margin="5,0,0,0" Style="{StaticResource Default.Button.Style}">
             <Image Width="20" Source="{DynamicResource MultitaskIconDrawingImage}" />
         </Button>
         <local:ApplicationBar Margin="5,0,0,0" />
         <local:StatusBar Width="215" Margin="5,0,0,0" />
         <!--<local:TaskbarPanel Width="200" Margin="5,0,0,0" />-->
         <local:TaskbarDateTime />
-        <Button Width="50" Margin="5,0,0,0" Style="{StaticResource Taskbar.Button.Style}">
+        <Button Width="50" Margin="5,0,0,0" Style="{StaticResource Default.Button.Style}">
             <Image Width="20" Source="{DynamicResource CortanaIconDrawingImage}" />
         </Button>
-        <Button Width="50" Margin="5,0,0,0" Style="{StaticResource Taskbar.Button.Style}">
+        <Button Width="50" Margin="5,0,0,0" Style="{StaticResource Default.Button.Style}">
             <Image Width="20" Source="{DynamicResource NotificationIconDrawingImage}" />
         </Button>
         <Border Width="6" Margin="5,0,0,0" Style="{StaticResource DefaultPanel.Style}" />

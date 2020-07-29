@@ -96,16 +96,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="StartMenu\Controls\AppList.xaml.cs">
+      <DependentUpon>AppList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StartMenu\StartMenu.xaml.cs">
       <DependentUpon>StartMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ApplicationUtils.cs" />
+    <Compile Include="Utils\Win32Interop\CMINVOKECOMMANDINFO.cs" />
+    <Compile Include="Utils\Win32Interop\IShellItemImageFactory.cs" />
+    <Compile Include="Utils\Win32Interop\Shell32.cs" />
+    <Compile Include="Utils\Win32Interop\SIIGBF.cs" />
+    <Compile Include="Utils\Win32Interop\HRESULT.cs" />
+    <Compile Include="Utils\Win32Interop\IContextMenu.cs" />
+    <Compile Include="Utils\Win32Interop\IEnumShellItems.cs" />
+    <Compile Include="Utils\Win32Interop\IShellItem.cs" />
+    <Compile Include="Utils\Win32Interop\SICHINTF.cs" />
+    <Compile Include="Utils\Win32Interop\SIGDN.cs" />
+    <Compile Include="Utils\Win32Interop\SIZE.cs" />
     <Page Include="Controls\Taskbar\ApplicationBar.xaml" />
     <Page Include="Controls\Taskbar\ApplicationBarIcon.xaml" />
     <Page Include="Controls\Taskbar\StatusBar.xaml" />
     <Page Include="Controls\Taskbar\StatusBarIcon.xaml" />
     <Page Include="Controls\Taskbar\TaskbarDateTime.xaml" />
     <Page Include="Controls\Taskbar\Taskbar.xaml" />
-    <Page Include="Controls\Taskbar\TaskbarButton.xaml" />
+    <Page Include="Resources\DefaultButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Taskbar\WindowsButton.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -144,7 +161,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\PanelButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Vectors.xaml" />
+    <Page Include="StartMenu\Controls\AppList.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="StartMenu\StartMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -184,9 +208,6 @@
     <Content Include="edge-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="StartMenu\Controls" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

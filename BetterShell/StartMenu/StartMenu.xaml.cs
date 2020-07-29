@@ -32,7 +32,7 @@ namespace BetterShell.StartMenu
             Show();*/
         }
 
-        protected override void OnActivated(EventArgs e)
+        /*protected override void OnActivated(EventArgs e)
         {
             if (_w == null)
             {
@@ -53,7 +53,7 @@ namespace BetterShell.StartMenu
 
 
             base.OnActivated(e);
-        }
+        }*/
 
         protected override void OnDeactivated(EventArgs e)
         {
