@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace BetterShell
 {
@@ -20,9 +21,22 @@ namespace BetterShell
     /// </summary>
     public partial class MainWindow
     {
+        public ImageSource WallPaper
+        {
+            get;
+            set;
+        }
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            
+            var bg = Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\Desktop","WallPaper",null);
+            var uri = new Uri(bg.ToString(),UriKind.Absolute);
+
+            WallPaper = new BitmapImage(uri);
         }
 
         

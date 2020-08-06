@@ -7,21 +7,41 @@
              mc:Ignorable="d"
              d:DesignHeight="750" d:DesignWidth="320" >
     <Border Width="320" Height="750" Margin="5,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource DefaultPanel.Style}">
-        <ItemsControl ItemsSource="{Binding}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <Button Height="55" Style="{StaticResource Panel.Button.Style}">
-                            <TextBlock HorizontalAlignment="Left" FontSize="22" Width="270" Foreground="White" Text="{Binding}" />
-                        </Button>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Button Height="55" Style="{StaticResource Panel.Button.Style}">
+                                <TextBlock HorizontalAlignment="Left" FontSize="22" Width="270" Foreground="White" Text="{Binding Letter}" />
+                            </Button>
+                            <ItemsControl ItemsSource="{Binding Applications}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Style="{StaticResource Panel.Button.Style}" Height="45">
+                                            <StackPanel Orientation="Horizontal" Width="270">
+                                                <Image Source="{Binding Icon}"  Width="32"/>
+                                                <TextBlock Text="{Binding Name}" Foreground="White" VerticalAlignment="Center" FontSize="13" Margin="16,0,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+        </ScrollViewer>
     </Border>
 </UserControl>

@@ -13,5 +13,6 @@ namespace BetterShell.Utils.Win32Interop
         SIIGBF_ICONONLY = 0x04,
         SIIGBF_THUMBNAILONLY = 0x08,
         SIIGBF_INCACHEONLY = 0x10,
+        SIIGBF_ICONBACKGROUND = 0x80
     }
 }

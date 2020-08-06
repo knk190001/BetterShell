@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Windows.UI.Xaml.Controls;
 using BetterShell.Utils.Win32Interop;
 using XamlCSS.CssParsing;
+using static System.Drawing.Imaging.ImageFormat;
 using Image = System.Drawing.Image;
 
 namespace BetterShell.Utils
@@ -34,17 +38,22 @@ namespace BetterShell.Utils
 
         public static ImageSource GetIcon(IShellItem application)
         {
-            var imageFactory = application as IShellItemImageFactory;
-            var hr = imageFactory.GetImage(new SIZE(96,96),SIIGBF.SIIGBF_BIGGERSIZEOK, out var hBitmap);
-            ThrowExceptionForHR(hr);
-            var bmp = Image.FromHbitmap(hBitmap);
-            using (Stream str = new MemoryStream())
+            // ReSharper disable once SuspiciousTypeConversion.Global
+            var imageFactory = (IShellItemImageFactory) application;
+            IntPtr hBitmap;
+            if (imageFactory != null)
             {
-                bmp.Save(str, System.Drawing.Imaging.ImageFormat.Bmp);
-                str.Seek(0, SeekOrigin.Begin);
-                BitmapDecoder bdc = new BmpBitmapDecoder(str, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
-                return bdc.Frames[0];
+                var hr = imageFactory.GetImage(new SIZE(50,50),SIIGBF.SIIGBF_ICONBACKGROUND, out hBitmap);
+                ThrowExceptionForHR(hr);
             }
+            else
+            {
+                return null;
+            }
+
+            var bmp = Imaging.CreateBitmapSourceFromHBitmap(hBitmap,IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+
+            return bmp;
         }
         
         private static IShellItem GetShellItem(string path)
