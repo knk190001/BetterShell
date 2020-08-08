@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using Windows.Management.Deployment;
 
 namespace BetterShell
 {
@@ -37,6 +38,8 @@ namespace BetterShell
             var uri = new Uri(bg.ToString(),UriKind.Absolute);
 
             WallPaper = new BitmapImage(uri);
+            
+            Background = new ImageBrush(WallPaper);
         }
 
         

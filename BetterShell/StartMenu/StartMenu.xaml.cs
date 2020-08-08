@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using BetterShell.Utils.WinRTInterop;
 
 namespace BetterShell.StartMenu
 {
@@ -12,10 +14,12 @@ namespace BetterShell.StartMenu
     {
         private Window _w;
         private bool _canHide = true;
+        private ApplicationActivationManager _applicationActivationManager;
 
         public StartMenu()
         {
             InitializeComponent();
+            _applicationActivationManager = new ApplicationActivationManager();
             /*var w = new Window
             {
                 Top = -100,
@@ -58,6 +62,18 @@ namespace BetterShell.StartMenu
         protected override void OnDeactivated(EventArgs e)
         {
             base.OnDeactivated(e);
+        }
+
+        private void Office_OnClick(object sender, RoutedEventArgs e)
+        {
+            _applicationActivationManager.ActivateApplication(
+                "Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe!Microsoft.MicrosoftOfficeHub", null, ActivateOptions.None,
+                out var pid);
+        }
+
+        private void OneDriver_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start("explorer.exe", @"shell:::{018D5C66-4533-4307-9B53-224DE2ED1FE6}");
         }
     }
 }

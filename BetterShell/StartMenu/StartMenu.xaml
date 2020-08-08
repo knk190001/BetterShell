@@ -12,10 +12,11 @@
         AllowsTransparency="True"
         ShowInTaskbar="False">
     <Window.Background>
-        <SolidColorBrush Opacity="0.0" Color="White"/>
+        <SolidColorBrush Opacity="0.0" Color="White" />
     </Window.Background>
     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="795">
-        <Border Width="60" Height="750" Margin="5,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource DefaultPanel.Style}">
+        <Border Width="60" Height="750" Margin="5,0,0,0" VerticalAlignment="Bottom"
+                Style="{StaticResource DefaultPanel.Style}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -23,31 +24,61 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
                     <Button Style="{StaticResource Panel.Button.Style}" Height="60">
-                        <Image Source="{StaticResource ExplorerIconDrawingImage}" Width="16"/>
+                        <Image Source="{StaticResource ExplorerIconDrawingImage}" Width="16" />
                     </Button>
                     <Button Style="{StaticResource Panel.Button.Style}" Height="60">
-                        <Image Source="{StaticResource SettingsIconDrawingImage}" Width="16"/>
+                        <Image Source="{StaticResource SettingsIconDrawingImage}" Width="16" />
                     </Button>
                     <Button Style="{StaticResource Panel.Button.Style}" Height="60">
-                        <Image Source="{StaticResource PowerIconDrawingImage}" Width="16"/>
+                        <Image Source="{StaticResource PowerIconDrawingImage}" Width="16" />
                     </Button>
                 </StackPanel>
                 <Button Grid.Row="0" Style="{StaticResource Panel.Button.Style}" Height="50" VerticalAlignment="Top">
-                    <Image Source="{StaticResource HamburgerIconDrawingImage}" Width="18" SnapsToDevicePixels="True"/>
+                    <Image Source="{StaticResource HamburgerIconDrawingImage}" Width="18" SnapsToDevicePixels="True" />
                 </Button>
             </Grid>
         </Border>
-        <!--<Border Width="320" Height="750" Margin="5,0,0,0" CornerRadius="3" VerticalAlignment="Bottom" Style="{StaticResource DefaultPanel.Style}">
-            <StackPanel>
-                <Button Height="55" Style="{StaticResource Panel.Button.Style}">
-                    <TextBlock HorizontalAlignment="Left" FontSize="22" Width="270" Foreground="White">A</TextBlock>
-                </Button>
-            </StackPanel>
-        </Border>-->
         <controls:AppList />
         <StackPanel Height="795" Margin="5,0,0,0">
             <Canvas Width="490" Height="155">
-                <Border Canvas.Top="45" Canvas.Left="0" Height="110" Width="490" Background="Black" CornerRadius="3" />
+                <Ellipse Width="85" Height="85" Canvas.Left="200" Canvas.ZIndex="1">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="../../user-192.png" Stretch="UniformToFill" />
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Border Canvas.Top="45" Canvas.Left="0" Height="110" Width="490"
+                        Style="{StaticResource DefaultPanel.Style}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="110" />
+                        </Grid.ColumnDefinitions>
+                        <Button Style="{StaticResource Panel.Button.Style}" Width="75" Height="79"
+                                Click="Office_OnClick">
+                            <StackPanel Height="60">
+                                <Image Source="{StaticResource MicrosoftOfficeLogoDrawingImage}" Width="38" />
+                                <TextBlock Text="Office" Foreground="White" HorizontalAlignment="Center"
+                                           Margin="0,4,0,0" />
+                            </StackPanel>
+                        </Button>
+                        <StackPanel Grid.Column="1" Height="34">
+                            <TextBlock Text="Good morning Account" Foreground="White" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment=" Center" />
+                            <TextBlock Text="email@hotmail.com" Foreground="White" HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Margin="0,4,0,0" />
+                        </StackPanel>
+                        <Button Style="{StaticResource Panel.Button.Style}" Width="75" Height="79" Grid.Column="2"
+                                Click="OneDriver_OnClick">
+                            <StackPanel Height="46">
+                                <Image Source="{StaticResource MicrosoftOneDriveDrawingImage}" Width="40" />
+                                <TextBlock Text="OneDrive" Foreground="White" HorizontalAlignment="Center"
+                                           Margin="0,4,0,0" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Border>
             </Canvas>
             <Border Width="490" Height="205" Background="Black" Margin="0,5,0,0" CornerRadius="3" />
             <Border Width="490" Height="150" Background="Black" Margin="0,5,0,0" CornerRadius="3" />

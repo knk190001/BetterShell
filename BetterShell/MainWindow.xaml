@@ -9,13 +9,8 @@
         WindowState="Maximized"
         Title="MainWindow"
         ResizeMode="NoResize"
-        d:DesignWidth="1920"
-        d:DesignHeight="1080"
         SnapsToDevicePixels="True"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
-    <Window.Background>
-        <ImageBrush ImageSource="{Binding WallPaper}"/>
-    </Window.Background>
+        >
 
     <Canvas>
         <controls:Taskbar Height="60" Width="1920" Canvas.Bottom="0" Canvas.Left="0"/>

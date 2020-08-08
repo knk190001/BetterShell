@@ -57,6 +57,38 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SharpVectors.Converters.Wpf, Version=1.6.0.0, Culture=neutral, PublicKeyToken=b532964b8548be77">
+      <HintPath>..\packages\SharpVectors.Reloaded.1.6.0\lib\net47\SharpVectors.Converters.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpVectors.Core, Version=1.6.0.0, Culture=neutral, PublicKeyToken=7407205e337c98ef">
+      <HintPath>..\packages\SharpVectors.Reloaded.1.6.0\lib\net47\SharpVectors.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpVectors.Css, Version=1.6.0.0, Culture=neutral, PublicKeyToken=7a46e3f532fdb787">
+      <HintPath>..\packages\SharpVectors.Reloaded.1.6.0\lib\net47\SharpVectors.Css.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpVectors.Dom, Version=1.6.0.0, Culture=neutral, PublicKeyToken=517340b6277b1a7a">
+      <HintPath>..\packages\SharpVectors.Reloaded.1.6.0\lib\net47\SharpVectors.Dom.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpVectors.Model, Version=1.6.0.0, Culture=neutral, PublicKeyToken=2236cfc76b505845">
+      <HintPath>..\packages\SharpVectors.Reloaded.1.6.0\lib\net47\SharpVectors.Model.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpVectors.Rendering.Gdi, Version=1.6.0.0, Culture=neutral, PublicKeyToken=03902092284347e3">
+      <HintPath>..\packages\SharpVectors.Reloaded.1.6.0\lib\net47\SharpVectors.Rendering.Gdi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpVectors.Rendering.Wpf, Version=1.6.0.0, Culture=neutral, PublicKeyToken=d0902381100df30e">
+      <HintPath>..\packages\SharpVectors.Reloaded.1.6.0\lib\net47\SharpVectors.Rendering.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpVectors.Runtime.Wpf, Version=1.6.0.0, Culture=neutral, PublicKeyToken=d16e717f0a981fb9">
+      <HintPath>..\packages\SharpVectors.Reloaded.1.6.0\lib\net47\SharpVectors.Runtime.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -114,6 +146,9 @@
     <Compile Include="Utils\Win32Interop\SICHINTF.cs" />
     <Compile Include="Utils\Win32Interop\SIGDN.cs" />
     <Compile Include="Utils\Win32Interop\SIZE.cs" />
+    <Compile Include="Utils\WinRTInterop\ActivateOptions.cs" />
+    <Compile Include="Utils\WinRTInterop\ApplicationActivationManager.cs" />
+    <Compile Include="Utils\WinRTInterop\IApplicationActivationManager.cs" />
     <Page Include="Controls\Taskbar\ApplicationBar.xaml" />
     <Page Include="Controls\Taskbar\ApplicationBarIcon.xaml" />
     <Page Include="Controls\Taskbar\StatusBar.xaml" />
@@ -208,6 +243,7 @@
     <Content Include="edge-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="user-192.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
