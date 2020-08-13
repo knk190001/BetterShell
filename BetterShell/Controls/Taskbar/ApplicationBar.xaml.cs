@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,10 @@ using Windows.System.Diagnostics;
 using HWND = System.IntPtr;
 using Size = Windows.Foundation.Size;
 using System.Windows.Forms;
+using Windows.System;
+using BetterShell.Utils;
+using BetterShell.Utils.Win32Interop;
+using Application = System.Windows.Application;
 using UserControl = System.Windows.Controls.UserControl;
 
 
@@ -29,12 +34,11 @@ namespace BetterShell.Controls
         {
             Applications = new Applications();
             InitializeComponent();
-            
         }
     }
 
 
-    public class Application
+    public class ApplicationWrapper
     {
         public Window Window { get; set; }
         public int Count { get; set; }
@@ -42,57 +46,87 @@ namespace BetterShell.Controls
         public string Identifier { get; set; }
     }
 
-    public class Applications : ObservableCollection<Application>
+    public class Applications : ObservableCollection<ApplicationWrapper>
     {
         public Applications()
         {
             var applications = OpenWindows();
             var iconsTask = GetIcons(applications);
-            while (!iconsTask.IsCompleted)
-            {
-            }
-
             for (var i = 0; i < applications.Count; i++)
             {
                 var id = GetIdentifier(applications[i]);
 
-                Add(new Application()
+                if (ContainsIdentifier(id, out var app))
+                {
+                    app.Count++;
+                    continue;
+                }
+
+                Add(new ApplicationWrapper()
                 {
                     Count = 1,
-                    Icon = iconsTask.Result[i],
+                    Icon = iconsTask[i],
                     Identifier = GetIdentifier(applications[i])
                 });
             }
-            
+        }
+
+        private bool ContainsIdentifier(string id, out ApplicationWrapper wrapperIfAny)
+        {
+            wrapperIfAny = this.FirstOrDefault(wrapper => wrapper.Identifier == id);
+            return wrapperIfAny != null;
         }
 
         private static string GetIdentifier(Window application)
         {
-            var id = application.process.ProcessName;
-            try
+            var id = "";
+            if (IsUwp(application))
             {
-                if (application.process.MainModule != null)
-                {
-                    id = application.process.MainModule.FileName;
-                }
+                id = GetUwpId(application);
             }
-            catch
+            else
             {
-                //ignored
+                try
+                {
+                    if (application.process.MainModule != null)
+                    {
+                        id = application.process.MainModule.FileName;
+                    }
+                }
+                catch
+                {
+                    //ignored
+                }
             }
 
             return id;
         }
 
-        private static async Task<BitmapSource[]> GetIcons(IEnumerable<Window> applications)
+        private static ImageSource[] GetIcons(IEnumerable<Window> applications)
         {
-            var icons = new List<BitmapSource>();
+            var icons = new List<ImageSource>();
 
             foreach (var application in applications)
             {
                 if (IsUwp(application))
                 {
-                    var bitmap = await GetUwpIcon(application);
+                    var bitmap = GetUwpIcon(application);
+                    if (bitmap == null)
+                    {
+                        Console.WriteLine(GetUwpId(application));
+
+                        icons.Add(BitmapSource.Create(
+                            2,
+                            2,
+                            96,
+                            96,
+                            PixelFormats.Indexed1,
+                            new BitmapPalette(new List<System.Windows.Media.Color> {Colors.Red}),
+                            new byte[] {0, 0, 0, 0},
+                            1));
+                        continue;
+                    }
+
                     icons.Add(bitmap);
                 }
                 else
@@ -104,13 +138,23 @@ namespace BetterShell.Controls
             return icons.ToArray();
         }
 
+        private static string GetUwpId(Window application)
+        {
+            var process = ProcessDiagnosticInfo.TryGetForProcessId((uint) application.process.Id);
+            foreach (var appDiagnosticInfo in process.GetAppDiagnosticInfos())
+            {
+                return appDiagnosticInfo.AppInfo.AppUserModelId;
+            }
+
+            return "None";
+        }
+
         private static BitmapSource GetIcon(Window application)
         {
             try
             {
                 using (Icon ico = Icon.ExtractAssociatedIcon(application.process.MainModule.FileName))
                 {
-                       
                     return Imaging.CreateBitmapSourceFromHIcon(ico.Handle, Int32Rect.Empty,
                         BitmapSizeOptions.FromEmptyOptions());
                 }
@@ -123,18 +167,20 @@ namespace BetterShell.Controls
                     96,
                     96,
                     PixelFormats.Indexed1,
-                    new BitmapPalette(new List<System.Windows.Media.Color> {Colors.Transparent}),
+                    new BitmapPalette(new List<System.Windows.Media.Color> {Colors.Blue}),
                     new byte[] {0, 0, 0, 0},
                     1);
             }
         }
 
-        private static async Task<BitmapImage> GetUwpIcon(Window application)
+        private static IShellItem[] _applications = ApplicationUtils.GetApplications();
+
+        private static ImageSource GetUwpIcon(Window application)
         {
             var uwpProcess = ProcessDiagnosticInfo.TryGetForProcessId((uint) application.process.Id);
 
-            var randomAccessStreamReference =
-                uwpProcess.GetAppDiagnosticInfos()[0].AppInfo.DisplayInfo.GetLogo(new Size(96, 96));
+            /*var randomAccessStreamReference =
+                uwpProcess.GetAppDiagnosticInfos()[0].AppInfo.DisplayInfo.GetLogo(new Size(256, 256));
             var bitmap = new BitmapImage();
 
             using (var randomAccessStream = await randomAccessStreamReference.OpenReadAsync())
@@ -146,7 +192,17 @@ namespace BetterShell.Controls
                     bitmap.StreamSource = stream;
                     bitmap.EndInit();
                 }
-            }
+            }*/
+            var appInfos = uwpProcess.GetAppDiagnosticInfos();
+            var appInfoCount = appInfos.Count;
+            var appInfo = appInfos[0].AppInfo;
+            var name = appInfo.AppUserModelId;
+
+
+            var shellItem =
+                _applications.First(item => ApplicationUtils.GetAppUserModelId(item) == appInfo.AppUserModelId);
+            var bitmap = ApplicationUtils.GetIcon(shellItem);
+
 
             return bitmap;
         }
@@ -182,7 +238,9 @@ namespace BetterShell.Controls
         [DllImport("USER32.DLL")]
         private static extern int GetWindowTextLength(HWND hWnd);
 
-
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern int GetWindowText(IntPtr hWnd, out string lpString, int nMaxCount);
+        
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool GetWindowInfo(IntPtr hwnd, ref Windowinfo pwi);
@@ -262,27 +320,41 @@ namespace BetterShell.Controls
             Process applicationFrameworkHost = null;
             EnumWindows(delegate(IntPtr hwnd, IntPtr lparam)
             {
+                var process = Process.GetProcessById(GetWindowProcessId(hwnd));
+
                 if (!IsWindowVisible(hwnd)) return true;
 
-                var process = Process.GetProcessById(GetWindowProcessId(hwnd));
                 if (process.ProcessName == "ApplicationFrameHost")
                 {
                     applicationFrameworkHost = process;
                     return true;
                 }
 
-                Windowinfo info = new Windowinfo();
+                var info = new Windowinfo();
 
                 GetWindowInfo(hwnd, ref info);
 
-                var popup = 0x80000000;
+                // var popup = 0x80000000;
+                const int popup = 0x00000000;
 
-                var toolWindow = 0x00000080;
+                const int toolWindow = 0x00000080;
 
-                if ((info.dwExStyle & toolWindow) != 0 || (info.dwStyle & popup) != 0) return true;
+                const int noActivate = 0x08000000;
+
+                const int noRedirectionBitmap = 0x00200000;
+
+                var diagnostics = ProcessDiagnosticInfo.TryGetForProcessId((uint) process.Id);
+
+                /*var id = diagnostics.IsPackaged ? diagnostics.GetAppDiagnosticInfos()[0].AppInfo.AppUserModelId:"";
+                var amuid = diagnostics.IsPackaged ? diagnostics.GetAppDiagnosticInfos()[0].AppInfo.AppUserModelId:"";
+                var package = diagnostics.IsPackaged ? diagnostics.GetAppDiagnosticInfos()[0].AppInfo.PackageFamilyName:"";*/
+
+                
+                // var settings =
+
+                if ((info.dwExStyle & (toolWindow | noActivate | noRedirectionBitmap)) != 0 || (info.dwStyle & (popup)) != 0) return true;
 
                 if (GetWindowTextLength(hwnd) == 0) return true;
-
 
                 result.Add(new Window(process, hwnd));
                 return true;
@@ -296,6 +368,7 @@ namespace BetterShell.Controls
                     EnumChildWindows(hwnd, delegate(IntPtr hwnd2, IntPtr lparam2)
                     {
                         var process = GetWindowProcessId(hwnd2);
+                        
                         if (process == applicationFrameworkHost.Id) return true;
                         result.Add(new Window(Process.GetProcessById(process), hwnd2));
                         return false;
@@ -304,7 +377,26 @@ namespace BetterShell.Controls
                 }, IntPtr.Zero);
             }
 
-            return result;
+
+            return result.Where(NotSuspended).ToList();
+        }
+
+        private static bool NotSuspended(Window window)
+        {
+            var diagnosticInfo = ProcessDiagnosticInfo.TryGetForProcessId((uint) window.process.Id);
+            if (!diagnosticInfo.IsPackaged)
+            {
+                return true;
+            }
+
+            var appDiagnosticInfos = diagnosticInfo.GetAppDiagnosticInfos();
+            var anySuspended = appDiagnosticInfos.Any(info =>
+                info.GetResourceGroups().Any(resourceInfo =>
+                    resourceInfo.GetStateReport().ExecutionState == AppResourceGroupExecutionState.Suspended
+                )
+            );
+
+            return !anySuspended;
         }
 
         #endregion

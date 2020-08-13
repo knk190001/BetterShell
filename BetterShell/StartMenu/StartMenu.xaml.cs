@@ -75,5 +75,11 @@ namespace BetterShell.StartMenu
         {
             Process.Start("explorer.exe", @"shell:::{018D5C66-4533-4307-9B53-224DE2ED1FE6}");
         }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            if (Application.Current.MainWindow != null) Left = Application.Current.MainWindow.Left;
+        }
     }
 }

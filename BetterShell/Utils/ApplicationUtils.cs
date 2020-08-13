@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Windows.UI.Xaml.Controls;
 using BetterShell.Utils.Win32Interop;
-using XamlCSS.CssParsing;
-using static System.Drawing.Imaging.ImageFormat;
-using Image = System.Drawing.Image;
 
 namespace BetterShell.Utils
 {
@@ -32,6 +26,13 @@ namespace BetterShell.Utils
         public static string GetName(IShellItem applicationItem)
         {
             applicationItem.GetDisplayName(SIGDN.SIGDN_NORMALDISPLAY, out var pName);
+            var name = Marshal.PtrToStringUni(pName);
+            return name;
+        }
+        
+        public static string GetAppUserModelId(IShellItem applicationItem)
+        {
+            applicationItem.GetDisplayName(SIGDN.SIGDN_PARENTRELATIVEPARSING, out var pName);
             var name = Marshal.PtrToStringUni(pName);
             return name;
         }
@@ -97,5 +98,90 @@ namespace BetterShell.Utils
 
             return items.ToArray();
         }
+        private static string TrueName(string path)
+        {
+            var info = new Shfileinfo();
+            Shell32.SHGetFileInfo(path, 0, ref info, (uint) Marshal.SizeOf(info), 0x000000200);
+            return info.szDisplayName;
+        }
+
+        private static string GetAppModelUserId(IShellItem applicationItem)
+        {
+            applicationItem.GetDisplayName(SIGDN.SIGDN_DESKTOPABSOLUTEPARSING, out var pName);
+            var name = Marshal.PtrToStringUni(pName);
+            return name;
+        }
+        private static Tree<App> ToTree(IEnumerable<Dir> startMenu)
+        { 
+            var result = new Tree<App>();
+
+            foreach (var dir in startMenu)
+            {
+                dir.ChildDirs
+                    .Select(ToTree)
+                    .ToList()
+                    .ForEach(result.AddChildHierarchy);
+                dir.ChildFiles
+                    .Select(file => new App(){Path = file.FilePath,Type = AppType.Exe})
+                    .ToList()
+                    .ForEach(result.AddChild);
+            }
+
+            return result;
+        }
+        
+        private static Branch<App> ToTree(Dir dir)
+        {
+            var result = new Branch<App>(new App(){Path = dir.FilePath,Type = AppType.None});
+            
+            dir.ChildDirs
+                .Select(ToTree)
+                .ToList()
+                .ForEach(result.AddChildHierarchy);
+            
+            dir.ChildFiles
+                .Select(file => new App(){Path = dir.FilePath,Type = AppType.None})
+                .ToList()
+                .ForEach(result.AddChild);
+            
+            return result;
+        }
+        
+        public static Tree<App> GetStartMenu()
+        {
+            var fileStructure = new[]
+                {
+                    @"%AppData%\Microsoft\Windows\Start Menu\",
+                    @"%AppData%\Microsoft\Windows\Start Menu\Programs",
+                    @"%ProgramData%\Microsoft\Windows\Start Menu\",
+                    @"%ProgramData%\Microsoft\Windows\Start Menu\Programs"
+                }
+                .Select(Environment.ExpandEnvironmentVariables)
+                .Select(dir => new Dir(dir)).ToList();
+            
+            var executables = fileStructure
+                .SelectMany(FileObject.GetAllFiles)
+                .Select(o => o.FilePath)
+                .Select(TrueName)
+                .ToList();
+
+            var shellItem = GetShellItem(ApplicationPath);
+            var enumerator = GetEnumShellItems(shellItem);
+            var uwpApps = EnumerateItems(enumerator)
+                .Select(item => Tuple.Create(GetName(item), item))
+                .Where(app => !executables.Contains(app.Item1))
+                .Select(tuple => tuple.Item2)
+                .Select(GetAppModelUserId)
+                .Select(amuid => new App(){Path = amuid,Type = AppType.AppX})
+                .ToList();
+
+            var result = ToTree(fileStructure);
+            
+            uwpApps.ForEach(result.AddChild);
+            
+            return result;
+            
+        }
+        
     }
 }

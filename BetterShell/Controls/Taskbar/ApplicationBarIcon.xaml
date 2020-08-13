@@ -6,6 +6,11 @@
              xmlns:local="clr-namespace:BetterShell.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.ToolTip>
+        <ToolTip DataContext="{Binding PlacementTarget.ToolTipText, RelativeSource={RelativeSource Self}}">
+            <TextBlock Text="{Binding}" />
+        </ToolTip>
+    </UserControl.ToolTip>
     <DockPanel Height="50" Width="55" Background="Transparent">
         <Grid DockPanel.Dock="Top">
             <Rectangle x:Name="Bg" Width="40" Height="46">

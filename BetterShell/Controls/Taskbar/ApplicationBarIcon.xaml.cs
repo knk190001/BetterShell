@@ -11,9 +11,18 @@ namespace BetterShell.Controls
         // public static DependencyProperty MultipleProperty = DependencyProperty.Register("Multiple",typeof(bool),typeof(ApplicationBarIcon));
         // public static DependencyProperty IsPrimaryProperty = DependencyProperty.Register("IsPrimary",typeof(bool),typeof(ApplicationBarIcon));
 
+        public static readonly DependencyProperty ToolTipTextProperty = DependencyProperty.Register(
+            nameof(ToolTipText), typeof(string), typeof(ApplicationBarIcon), new PropertyMetadata(default(string)));
+
+        public string ToolTipText
+        {
+            get => (string) GetValue(ToolTipTextProperty);
+            set => SetValue(ToolTipTextProperty, value);
+        }
+        
         public ImageSource Icon
         {
-            get => (ImageSource) GetValue(ApplicationBarIcon.IconProperty);
+            get => (ImageSource) GetValue(IconProperty);
             set => SetValue(IconProperty, value);
         }
 

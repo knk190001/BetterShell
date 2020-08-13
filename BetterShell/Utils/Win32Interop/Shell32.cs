@@ -13,5 +13,9 @@ namespace BetterShell.Utils.Win32Interop
         [DllImport("Shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern HRESULT SHCreateItemFromIDList(IntPtr pidl, [In, MarshalAs(UnmanagedType.LPStruct)]
             Guid riid, out IShellItem ppv);
+        
+        [DllImport("shell32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref Shfileinfo psfi,
+            uint cbFileInfo, uint uFlags);
     }
 }

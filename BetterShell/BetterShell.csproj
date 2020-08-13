@@ -116,12 +116,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="XamlCSS, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\XamlCSS.2.2.0\lib\net461\XamlCSS.dll</HintPath>
-    </Reference>
-    <Reference Include="XamlCSS.WPF, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\XamlCSS.WPF.2.2.0\lib\net471\XamlCSS.WPF.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -131,13 +125,23 @@
     <Compile Include="StartMenu\Controls\AppList.xaml.cs">
       <DependentUpon>AppList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StartMenu\Controls\AppListEntry.xaml.cs">
+      <DependentUpon>AppListEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StartMenu\Controls\UserPanel.xaml.cs">
+      <DependentUpon>UserPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StartMenu\StartMenu.xaml.cs">
       <DependentUpon>StartMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\App.cs" />
     <Compile Include="Utils\ApplicationUtils.cs" />
+    <Compile Include="Utils\FileObject.cs" />
+    <Compile Include="Utils\Tree.cs" />
     <Compile Include="Utils\Win32Interop\CMINVOKECOMMANDINFO.cs" />
     <Compile Include="Utils\Win32Interop\IShellItemImageFactory.cs" />
     <Compile Include="Utils\Win32Interop\Shell32.cs" />
+    <Compile Include="Utils\Win32Interop\SHFILEINFO.cs" />
     <Compile Include="Utils\Win32Interop\SIIGBF.cs" />
     <Compile Include="Utils\Win32Interop\HRESULT.cs" />
     <Compile Include="Utils\Win32Interop\IContextMenu.cs" />
@@ -204,6 +208,8 @@
     <Page Include="StartMenu\Controls\AppList.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="StartMenu\Controls\AppListEntry.xaml" />
+    <Page Include="StartMenu\Controls\UserPanel.xaml" />
     <Page Include="StartMenu\StartMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

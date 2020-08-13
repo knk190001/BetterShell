@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -14,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using Windows.Management.Deployment;
+using Application = System.Windows.Application;
 
 namespace BetterShell
 {
@@ -42,6 +44,17 @@ namespace BetterShell
             Background = new ImageBrush(WallPaper);
         }
 
-        
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            var bounds = Screen.AllScreens[1].Bounds;
+            WindowState = WindowState.Normal;
+            Left = bounds.Left;
+            Top = bounds.Top;
+            Width = bounds.Width;
+            Height = bounds.Height;
+            WindowState = WindowState.Maximized;
+        }
     }
 }
