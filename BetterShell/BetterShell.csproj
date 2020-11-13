@@ -56,6 +56,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpVectors.Converters.Wpf, Version=1.6.0.0, Culture=neutral, PublicKeyToken=b532964b8548be77">
       <HintPath>..\packages\SharpVectors.Reloaded.1.6.0\lib\net47\SharpVectors.Converters.Wpf.dll</HintPath>
@@ -122,11 +125,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\Taskbar\TaskbarApplication.cs" />
+    <Compile Include="StartMenu\Controls\Application.xaml.cs">
+      <DependentUpon>Application.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StartMenu\Controls\AppList.xaml.cs">
       <DependentUpon>AppList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StartMenu\Controls\AppListEntry.xaml.cs">
-      <DependentUpon>AppListEntry.xaml</DependentUpon>
+    <Compile Include="StartMenu\Controls\Folder.xaml.cs">
+      <DependentUpon>Folder.xaml</DependentUpon>
     </Compile>
     <Compile Include="StartMenu\Controls\UserPanel.xaml.cs">
       <DependentUpon>UserPanel.xaml</DependentUpon>
@@ -135,11 +142,17 @@
       <DependentUpon>StartMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\App.cs" />
+    <Compile Include="Utils\ApplicationExecutor.cs" />
     <Compile Include="Utils\ApplicationUtils.cs" />
+    <Compile Include="Utils\Converters\StringToUpperConverter.cs" />
     <Compile Include="Utils\FileObject.cs" />
+    <Compile Include="Utils\ProcessUtils.cs" />
+    <Compile Include="Utils\RunningApplicationUtils.cs" />
+    <Compile Include="Utils\StartMenuItem.cs" />
     <Compile Include="Utils\Tree.cs" />
     <Compile Include="Utils\Win32Interop\CMINVOKECOMMANDINFO.cs" />
     <Compile Include="Utils\Win32Interop\IShellItemImageFactory.cs" />
+    <Compile Include="Utils\Win32Interop\RECT.cs" />
     <Compile Include="Utils\Win32Interop\Shell32.cs" />
     <Compile Include="Utils\Win32Interop\SHFILEINFO.cs" />
     <Compile Include="Utils\Win32Interop\SIIGBF.cs" />
@@ -150,6 +163,9 @@
     <Compile Include="Utils\Win32Interop\SICHINTF.cs" />
     <Compile Include="Utils\Win32Interop\SIGDN.cs" />
     <Compile Include="Utils\Win32Interop\SIZE.cs" />
+    <Compile Include="Utils\Win32Interop\User32.cs" />
+    <Compile Include="Utils\Win32Interop\WINDOWINFO.cs" />
+    <Compile Include="Utils\Window.cs" />
     <Compile Include="Utils\WinRTInterop\ActivateOptions.cs" />
     <Compile Include="Utils\WinRTInterop\ApplicationActivationManager.cs" />
     <Compile Include="Utils\WinRTInterop\IApplicationActivationManager.cs" />
@@ -159,6 +175,8 @@
     <Page Include="Controls\Taskbar\StatusBarIcon.xaml" />
     <Page Include="Controls\Taskbar\TaskbarDateTime.xaml" />
     <Page Include="Controls\Taskbar\Taskbar.xaml" />
+    <Page Include="Resources\Blank.xaml" />
+    <Page Include="Resources\Converters.xaml" />
     <Page Include="Resources\DefaultButton.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -205,10 +223,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Vectors.xaml" />
-    <Page Include="StartMenu\Controls\AppList.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="StartMenu\Controls\AppListEntry.xaml" />
+    <Page Include="StartMenu\Controls\Application.xaml" />
+    <Page Include="StartMenu\Controls\AppList.xaml" />
+    <Page Include="StartMenu\Controls\Folder.xaml" />
     <Page Include="StartMenu\Controls\UserPanel.xaml" />
     <Page Include="StartMenu\StartMenu.xaml">
       <SubType>Designer</SubType>
@@ -233,6 +250,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -249,7 +267,21 @@
     <Content Include="edge-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="user-192.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

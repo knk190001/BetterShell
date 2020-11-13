@@ -4,44 +4,40 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:BetterShell.StartMenu.Controls"
+             xmlns:utils="clr-namespace:BetterShell.Utils"
              mc:Ignorable="d"
-             d:DesignHeight="750" d:DesignWidth="320" >
-    <Border Width="320" Height="750" Margin="5,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource DefaultPanel.Style}">
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Border Width="320" Height="750" Margin="5,0,0,0"
+            VerticalAlignment="Bottom"
+            Style="{StaticResource DefaultPanel.Style}"
+            ClipToBounds="True">
         <ScrollViewer>
-            <ItemsControl ItemsSource="{Binding}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <Button Height="55" Style="{StaticResource Panel.Button.Style}">
-                                <TextBlock HorizontalAlignment="Left" FontSize="22" Width="270" Foreground="White" Text="{Binding Letter}" />
-                            </Button>
-                            <ItemsControl ItemsSource="{Binding Applications}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Button Style="{StaticResource Panel.Button.Style}" Height="45">
-                                            <StackPanel Orientation="Horizontal" Width="270">
-                                                <Image Source="{Binding Icon}"  Width="32"/>
-                                                <TextBlock Text="{Binding Name}" Foreground="White" VerticalAlignment="Center" FontSize="13" Margin="16,0,0,0"/>
-                                            </StackPanel>
-                                        </Button>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+            <ItemsControl Name="StartMenu">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel />
+                        <VirtualizingStackPanel />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-            </ItemsControl>
+                <ItemsControl.Resources>
+                    <DataTemplate DataType="{x:Type utils:StartMenuItem}">
+                        <local:Application 
+                            Text="{Binding Name}" 
+                            Icon="{Binding Image}" 
+                            Path="{Binding Path}" 
+                            Type="{Binding Type}"/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type utils:StartMenuFolder}">
+                        <local:Folder Text="{Binding Name}" Children="{Binding Children}" />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type utils:StartMenuLabel}">
+                        <Button Height="55" Style="{StaticResource Panel.Button.Style}">
+                            <TextBlock HorizontalAlignment="Left" FontSize="22" Width="270" Foreground="White"
+                                       Text="{Binding Name,Converter={StaticResource StringToUpper}}" />
+                        </Button>
+                    </DataTemplate>
 
+                </ItemsControl.Resources>
+            </ItemsControl>
         </ScrollViewer>
     </Border>
 </UserControl>

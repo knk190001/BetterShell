@@ -19,7 +19,7 @@ namespace BetterShell.Utils
 
         public abstract List<FileObject> Children { get; }
         
-        public static List<FileObject> GetAllFiles(FileObject fileObject)
+        private static List<FileObject> GetAllFiles(FileObject fileObject)
         {
             var files = new List<FileObject>();
 
@@ -54,25 +54,29 @@ namespace BetterShell.Utils
         public override FileAttr Type { get; }
         public override List<FileObject> Children { get; }
 
-        public List<Dir> ChildDirs => Children != null ? Children.OfType<Dir>().ToList() : new List<Dir>();
+        public IEnumerable<Dir> ChildDirs => Children != null ? Children.OfType<Dir>().ToList() : new List<Dir>();
 
-        public List<FileWrapper> ChildFiles =>
-            Children != null ? Children.OfType<FileWrapper>().ToList() : new List<FileWrapper>();
+        public List<FileWrapper> ChildFiles
+        {
+            get
+            {
+                return Children != null
+                    ? Children.Where(file => file is FileWrapper).Cast<FileWrapper>().ToList()
+                    : new List<FileWrapper>();
+            }
+        }
 
         public Dir(string path)
         {
             FilePath = path;
-            Name = Path.GetDirectoryName(path);
+            Name = Path.GetFileName(path);
             Type = FileAttr.Directory;
 
             var files = Directory.GetFiles(path);
+            var children = files.Select(file => new FileWrapper(file)).Cast<FileObject>().ToList();
             var subDirectories = Directory.GetDirectories(path);
-
-            Children = files.Select(file => new FileWrapper(file))
-                .Cast<FileObject>()
-                .Union(
-                    subDirectories.Select(subDirectory => new Dir(subDirectory))
-                ).ToList();
+            children.AddRange(subDirectories.Select(subDirectory => new Dir(subDirectory)));
+            Children = children;
         }
     }
 }

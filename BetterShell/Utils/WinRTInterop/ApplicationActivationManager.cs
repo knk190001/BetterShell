@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace BetterShell.Utils.WinRTInterop
 {
     [ComImport, Guid("45BA127D-10A8-46EA-8AB7-56EA9078943C")] //Application Activation Manager
-    class ApplicationActivationManager : IApplicationActivationManager
+    public class ApplicationActivationManager : IApplicationActivationManager
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime) /*, PreserveSig*/]
         public extern IntPtr ActivateApplication([In] string appUserModelId, [In] string arguments,

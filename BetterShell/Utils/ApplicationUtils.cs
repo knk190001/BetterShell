@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -14,25 +15,24 @@ namespace BetterShell.Utils
     {
         private const string ApplicationPath = "shell:::{4234D49B-0245-4DF3-B780-3893943456E1}";
 
+        private static readonly IShellItem[] Applications = GetApplications();
+
+        public static ImageSource GetIconForAppModelUserId(string appModelUserId)
+        {
+            return GetIcon(Applications.First(item => GetAppModelUserId(item) == appModelUserId));
+        }
+        
         public static IShellItem[] GetApplications()
         {
             var applicationsFolder = GetShellItem(ApplicationPath);
             var applicationEnumerator = GetEnumShellItems(applicationsFolder);
             var applications = EnumerateItems(applicationEnumerator);
-
             return applications.ToArray();
         }
 
         public static string GetName(IShellItem applicationItem)
         {
             applicationItem.GetDisplayName(SIGDN.SIGDN_NORMALDISPLAY, out var pName);
-            var name = Marshal.PtrToStringUni(pName);
-            return name;
-        }
-        
-        public static string GetAppUserModelId(IShellItem applicationItem)
-        {
-            applicationItem.GetDisplayName(SIGDN.SIGDN_PARENTRELATIVEPARSING, out var pName);
             var name = Marshal.PtrToStringUni(pName);
             return name;
         }
@@ -44,7 +44,7 @@ namespace BetterShell.Utils
             IntPtr hBitmap;
             if (imageFactory != null)
             {
-                var hr = imageFactory.GetImage(new SIZE(50,50),SIIGBF.SIIGBF_ICONBACKGROUND, out hBitmap);
+                var hr = imageFactory.GetImage(new SIZE(50, 50), SIIGBF.SIIGBF_ICONBACKGROUND, out hBitmap);
                 ThrowExceptionForHR(hr);
             }
             else
@@ -52,11 +52,12 @@ namespace BetterShell.Utils
                 return null;
             }
 
-            var bmp = Imaging.CreateBitmapSourceFromHBitmap(hBitmap,IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            var bmp = Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
 
             return bmp;
         }
-        
+
         private static IShellItem GetShellItem(string path)
         {
             uint rgfInOut = 0;
@@ -86,7 +87,7 @@ namespace BetterShell.Utils
             ThrowExceptionForHR(hr);
             return Marshal.GetObjectForIUnknown(pEnumItems) as IEnumShellItems;
         }
-        
+
         private static IShellItem[] EnumerateItems(IEnumShellItems enumShellItems)
         {
             var items = new List<IShellItem>();
@@ -98,6 +99,7 @@ namespace BetterShell.Utils
 
             return items.ToArray();
         }
+
         private static string TrueName(string path)
         {
             var info = new Shfileinfo();
@@ -105,51 +107,62 @@ namespace BetterShell.Utils
             return info.szDisplayName;
         }
 
-        private static string GetAppModelUserId(IShellItem applicationItem)
+        public static string GetAppModelUserId(IShellItem applicationItem)
         {
             applicationItem.GetDisplayName(SIGDN.SIGDN_DESKTOPABSOLUTEPARSING, out var pName);
             var name = Marshal.PtrToStringUni(pName);
             return name;
         }
-        private static Tree<App> ToTree(IEnumerable<Dir> startMenu)
-        { 
-            var result = new Tree<App>();
 
-            foreach (var dir in startMenu)
+        private static List<FileObject> GetAllFiles(FileObject fileObject)
+        {
+            var files = new List<FileObject>();
+
+            if (!(fileObject is Dir dir)) return files;
+            files.AddRange(dir.ChildDirs.SelectMany(GetAllFiles).ToList());
+            files.AddRange(dir.ChildFiles);
+
+            return files;
+        }
+
+        private static StartMenuFolder ToStartMenu(List<Dir> dirs)
+        {
+            var result = new StartMenuFolder(null, null, AppType.None);
+
+            foreach (var dir in dirs)
             {
                 dir.ChildDirs
-                    .Select(ToTree)
+                    .Select(ToStartMenu)
                     .ToList()
-                    .ForEach(result.AddChildHierarchy);
+                    .ForEach(result.AddChild);
+
                 dir.ChildFiles
-                    .Select(file => new App(){Path = file.FilePath,Type = AppType.Exe})
+                    .Select(file => new StartMenuItem(TrueName(file.FilePath), file.FilePath, AppType.Exe))
+                    .Where(item => item.Name!="desktop.ini")
                     .ToList()
                     .ForEach(result.AddChild);
             }
 
             return result;
         }
-        
-        private static Branch<App> ToTree(Dir dir)
+
+        private static StartMenuItem ToStartMenu(Dir dir)
         {
-            var result = new Branch<App>(new App(){Path = dir.FilePath,Type = AppType.None});
+            var result = new StartMenuFolder(TrueName(dir.FilePath), dir.FilePath, AppType.None);
             
-            dir.ChildDirs
-                .Select(ToTree)
-                .ToList()
-                .ForEach(result.AddChildHierarchy);
-            
-            dir.ChildFiles
-                .Select(file => new App(){Path = dir.FilePath,Type = AppType.None})
+            GetAllFiles(dir)
+                .Where(o => o.Name !="Desktop.ini")
+                .Where(o => o.Name !="desktop.ini")
+                .Select(file => new StartMenuItem(TrueName(file.FilePath), file.FilePath, AppType.Exe))
                 .ToList()
                 .ForEach(result.AddChild);
-            
+
             return result;
         }
-        
-        public static Tree<App> GetStartMenu()
+
+        public static StartMenuFolder GetStartMenu()
         {
-            var fileStructure = new[]
+            var startMenu = new[]
                 {
                     @"%AppData%\Microsoft\Windows\Start Menu\",
                     @"%AppData%\Microsoft\Windows\Start Menu\Programs",
@@ -158,30 +171,57 @@ namespace BetterShell.Utils
                 }
                 .Select(Environment.ExpandEnvironmentVariables)
                 .Select(dir => new Dir(dir)).ToList();
-            
-            var executables = fileStructure
-                .SelectMany(FileObject.GetAllFiles)
+
+            var files = startMenu
+                .SelectMany(GetAllFiles)
+                .Distinct()
+                .AsParallel()
                 .Select(o => o.FilePath)
                 .Select(TrueName)
                 .ToList();
 
-            var shellItem = GetShellItem(ApplicationPath);
-            var enumerator = GetEnumShellItems(shellItem);
-            var uwpApps = EnumerateItems(enumerator)
+            const string applicationPath = "shell:::{4234D49B-0245-4DF3-B780-3893943456E1}";
+
+            var shellItem = GetShellItem(applicationPath);
+            var enumShellItems = GetEnumShellItems(shellItem);
+            var applications = EnumerateItems(enumShellItems)
                 .Select(item => Tuple.Create(GetName(item), item))
-                .Where(app => !executables.Contains(app.Item1))
-                .Select(tuple => tuple.Item2)
-                .Select(GetAppModelUserId)
-                .Select(amuid => new App(){Path = amuid,Type = AppType.AppX})
+                .Where(app => !files.Contains(app.Item1))
+                .Select(tuple => Tuple.Create(tuple.Item1, GetAppModelUserId(tuple.Item2)))
+                .Select(tuple => new StartMenuItem(tuple.Item1, tuple.Item2, AppType.AppX))
                 .ToList();
 
-            var result = ToTree(fileStructure);
+            var tree = ToStartMenu(startMenu);
+
+            tree.Children = tree.Children.FindAll(item => item.Name != "Programs");
+
+
+            applications.ForEach(tree.AddChild);
             
-            uwpApps.ForEach(result.AddChild);
+            tree.Children
+                .Select(o =>o.Name[0])
+                .Select(char.ToLower)
+                .Select(item => char.IsNumber(item) ? '#' : item)
+                .Distinct()
+                .Select(c => new StartMenuLabel(c))
+                .Where(BranchesHaveChildren)
+                .ToList()
+                .ForEach(tree.AddChild);
             
-            return result;
-            
+            return tree;
+        }
+
+        private static bool BranchesHaveChildren(StartMenuItem item)
+        {
+            if (!(item is StartMenuFolder))
+            {
+                return true;
+            }
+            return ((StartMenuFolder) item).Children.Count != 0;
         }
         
+        
+        
     }
+    
 }

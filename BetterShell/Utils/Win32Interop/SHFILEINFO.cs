@@ -4,7 +4,8 @@ using System.Runtime.InteropServices;
 
 namespace BetterShell.Utils.Win32Interop
 {
-    
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+
     public  struct Shfileinfo
     {
         public IntPtr hIcon;

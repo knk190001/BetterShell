@@ -11,17 +11,20 @@
             <TextBlock Text="{Binding}" />
         </ToolTip>
     </UserControl.ToolTip>
-    <DockPanel Height="50" Width="55" Background="Transparent">
-        <Grid DockPanel.Dock="Top">
-            <Rectangle x:Name="Bg" Width="40" Height="46">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="Transparent" />
-                </Rectangle.Fill>
-            </Rectangle>
-            <Image Width="24"  Source="{Binding Icon}"/>
-        </Grid>
-        <Rectangle x:Name="Accent" DockPanel.Dock="Bottom" Width="40" Height="3.5" Fill="#0694f3" />
-    </DockPanel>
+    <Button Style="{StaticResource Blank.Button.Style}">
+        <DockPanel Height="50" Width="55" Background="Transparent" >
+            <Grid DockPanel.Dock="Top">
+                <Rectangle x:Name="Bg" Width="40" Height="46">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="Transparent" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Image Width="24"  Source="{Binding Icon}"/>
+            </Grid>
+            <Rectangle x:Name="Accent" DockPanel.Dock="Bottom" Width="40" Height="3.5" Fill="#0694f3" />
+        </DockPanel>
+        
+    </Button>
     <UserControl.Resources>
         <Duration x:Key="ApplicationBarIcon.AnimationDuration">0:0:0.05</Duration>
     </UserControl.Resources>

@@ -24,10 +24,9 @@ namespace BetterShell
     /// </summary>
     public partial class MainWindow
     {
-        public ImageSource WallPaper
+        private ImageSource WallPaper
         {
             get;
-            set;
         }
 
 
@@ -42,13 +41,21 @@ namespace BetterShell
             WallPaper = new BitmapImage(uri);
             
             Background = new ImageBrush(WallPaper);
+            
+            var bounds = Screen.PrimaryScreen.Bounds;
+            WindowState = WindowState.Normal;
+            Height = bounds.Height;
+            Width = bounds.Width;
+            Left = bounds.Left;
+            Top = bounds.Top;
+            // WindowState = WindowState.Maximized;
         }
 
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
 
-            var bounds = Screen.AllScreens[1].Bounds;
+            var bounds = Screen.PrimaryScreen.Bounds;
             WindowState = WindowState.Normal;
             Left = bounds.Left;
             Top = bounds.Top;

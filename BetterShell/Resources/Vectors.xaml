@@ -442,4 +442,28 @@
     </DrawingGroup>
   </DrawingImage.Drawing>
 </DrawingImage>
+    <DrawingImage x:Key="UpArrowDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V127.15 H240.02 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="230.928955078125" Y="321.968994140625" />
+                </DrawingGroup.Transform>
+                <DrawingGroup Transform="1,0,0,1,2230.929,321.969">
+                    <GeometryDrawing Brush="White" Geometry="F1 M240.02,127.15z M0,0z M-2230.929,-194.819L-2230.929,-201.969 -2230.858,-201.969 -2112.952,-319.875 -2110.898,-321.969 -2110.878,-321.949 -2110.858,-321.969 -2110.599,-321.669 -1990.909,-201.956 -1990.929,-201.936 -1990.929,-194.897 -1997.906,-194.897 -1997.938,-194.865 -2110.932,-307.86 -2223.858,-194.827 -2223.929,-194.9 -2223.929,-194.819z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="DownArrowDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V127.173 H240.02 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="2230.928955078125" Y="321.9630126953125" />
+                </DrawingGroup.Transform>
+                <DrawingGroup Transform="-1,1.22460635382238E-16,-1.22460635382238E-16,-1,-1990.909,-194.796">
+                    <GeometryDrawing Brush="White" Geometry="F1 M240.02,127.173z M0,0z M-2223.929,-194.836L-2223.929,-194.818 -2230.929,-194.818 -2230.929,-201.968 -2230.857,-201.968 -2112.957,-319.868 -2110.902,-321.963 -2110.882,-321.943 -2110.862,-321.963 -2110.603,-321.663 -1990.913,-201.95 -1990.933,-201.93 -1990.933,-194.891 -1997.91,-194.891 -1997.942,-194.859 -2110.932,-307.86 -2223.889,-194.8z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
 </ResourceDictionary>
