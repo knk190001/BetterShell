@@ -11,7 +11,7 @@
             <TextBlock Text="{Binding}" />
         </ToolTip>
     </UserControl.ToolTip>
-    <Button Style="{StaticResource Blank.Button.Style}">
+    <Button Style="{StaticResource Blank.Button.Style}" Click="OnClick">
         <DockPanel Height="50" Width="55" Background="Transparent" >
             <Grid DockPanel.Dock="Top">
                 <Rectangle x:Name="Bg" Width="40" Height="46">

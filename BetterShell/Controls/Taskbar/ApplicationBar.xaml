@@ -19,7 +19,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                         <local:ApplicationBarIcon Icon="{Binding Icon}" ToolTipText="{Binding Identifier}"/>
+                         <local:ApplicationBarIcon Icon="{Binding Icon}" ToolTipText="{Binding Identifier}" HWND="{Binding HWND}"/>
                          <!--<Image Source="{Binding Icon}" />-->
                          <!--<TextBlock Text="{Binding Identifier}"  Foreground="White"/>-->
                     </DataTemplate>

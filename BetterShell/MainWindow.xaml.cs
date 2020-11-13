@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using Windows.Management.Deployment;
+using Windows.Web.AtomPub;
+using BetterShell.Utils;
+using BetterShell.Utils.Win32Interop;
 using Application = System.Windows.Application;
+using Point = System.Drawing.Point;
 
 namespace BetterShell
 {
@@ -62,6 +67,8 @@ namespace BetterShell
             Width = bounds.Width;
             Height = bounds.Height;
             WindowState = WindowState.Maximized;
+            var workingArea = Screen.PrimaryScreen.Bounds;
+            SystemUtils.SetWorkspace(new RECT() {Bottom = workingArea.Bottom-60, Left = workingArea.Left, Right = workingArea.Right, Top = workingArea.Top});
         }
     }
 }

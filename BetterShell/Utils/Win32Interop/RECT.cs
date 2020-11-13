@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace BetterShell.Controls
+namespace BetterShell.Utils.Win32Interop
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct RECT

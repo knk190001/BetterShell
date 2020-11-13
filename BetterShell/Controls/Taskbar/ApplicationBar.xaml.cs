@@ -40,7 +40,8 @@ namespace BetterShell.Controls
                 {
                     Count = 1,
                     Icon = iconsTask[i],
-                    Identifier = RunningApplicationUtils.GetIdentifier(applications[i])
+                    Identifier = RunningApplicationUtils.GetIdentifier(applications[i]),
+                    HWND = applications[i].hwnd
                 });
             }
         }

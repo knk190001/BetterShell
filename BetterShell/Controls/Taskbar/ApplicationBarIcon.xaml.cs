@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using BetterShell.Utils;
 
 namespace BetterShell.Controls
 {
@@ -19,6 +20,15 @@ namespace BetterShell.Controls
             get => (string) GetValue(ToolTipTextProperty);
             set => SetValue(ToolTipTextProperty, value);
         }
+
+        public static readonly DependencyProperty HWNDProperty = DependencyProperty.Register(
+            nameof(HWND), typeof(IntPtr), typeof(ApplicationBarIcon), new PropertyMetadata(default(IntPtr)));
+
+        public IntPtr HWND
+        {
+            get => (IntPtr) GetValue(HWNDProperty);
+            set => SetValue(HWNDProperty, value);
+        }
         
         public ImageSource Icon
         {
@@ -29,6 +39,11 @@ namespace BetterShell.Controls
         public ApplicationBarIcon()
         {
             InitializeComponent();
+        }
+
+        private void OnClick(object sender, RoutedEventArgs e)
+        {
+            RunningApplicationUtils.SetForegroundWindow(HWND);
         }
     }
 }

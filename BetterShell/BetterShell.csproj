@@ -149,6 +149,7 @@
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\RunningApplicationUtils.cs" />
     <Compile Include="Utils\StartMenuItem.cs" />
+    <Compile Include="Utils\SystemUtils.cs" />
     <Compile Include="Utils\Tree.cs" />
     <Compile Include="Utils\Win32Interop\CMINVOKECOMMANDINFO.cs" />
     <Compile Include="Utils\Win32Interop\IShellItemImageFactory.cs" />

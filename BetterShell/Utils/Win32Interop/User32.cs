@@ -39,5 +39,27 @@ namespace BetterShell.Utils.Win32Interop
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool EnumThreadWindows(uint dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
+        
+        [DllImport("User32.dll")]
+        public static extern int SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        internal static extern bool SendMessage(IntPtr hWnd, Int32 msg, Int32 wParam, Int32 lParam);
+        public static readonly int WM_SYSCOMMAND = 0x0112;
+        public static readonly int SC_RESTORE = 0xF120;
+        
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SystemParametersInfo(
+            int uiAction,
+            int uiParam,
+            ref RECT pvParam,
+            int fWinIni);
+
+        public static readonly int SPIF_SENDWININICHANGE = 2;
+        public static readonly int SPIF_UPDATEINIFILE = 1;
+        public static readonly int SPIF_change = SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE;
+        public static readonly int SPI_SETWORKAREA = 47;
+        public static readonly int SPI_GETWORKAREA = 48;
     }
 }
