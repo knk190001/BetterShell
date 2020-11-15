@@ -20,7 +20,7 @@ namespace BetterShell.Controls
 
     
 
-    public partial class Applications : ObservableCollection<TaskbarApplication>
+    public class Applications : ObservableCollection<TaskbarApplication>
     {
         public Applications()
         {

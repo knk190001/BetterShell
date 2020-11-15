@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
+using Windows.UI.Xaml.Media;
+using BetterShell.Utils.Win32Interop;
 using BetterShell.Utils.WinRTInterop;
 
 namespace BetterShell.StartMenu
@@ -20,48 +24,37 @@ namespace BetterShell.StartMenu
         {
             InitializeComponent();
             _applicationActivationManager = new ApplicationActivationManager();
-            /*var w = new Window
-            {
-                Top = -100,
-                Left = -100,
-                Width = 1,
-                Height = 1,
-                WindowStyle = WindowStyle.ToolWindow,
-                ShowInTaskbar = false
-            };
-            
-            w.Show(); 
-            Owner = w; 
-            w.Hide();
-            Show();*/
+            EnableBlur();
         }
 
-        /*protected override void OnActivated(EventArgs e)
+        private void EnableBlur()
         {
-            if (_w == null)
+            /*var windowHelper = new WindowInteropHelper(this);
+            var accent = new AccentPolicy();
+            var accentSize = Marshal.SizeOf(accent);
+            
+            
+            accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
+            
+            
+            var accentPtr = Marshal.AllocHGlobal(accentSize);
+            Marshal.StructureToPtr(accent, accentPtr, false);
+
+            var data = new WindowCompositionAttributeData
             {
-                _w = new Window
-                {
-                    Top = -100,
-                    Left = -100,
-                    Width = 1,
-                    Height = 1,
-                    WindowStyle = WindowStyle.ToolWindow,
-                    ShowInTaskbar = false
-                };
+                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
+                SizeOfData = accentSize,
+                Data = accentPtr
+            };
+
+            var res = User32.SetWindowCompositionAttribute(windowHelper.Handle, ref data);
+            if (res == 0)
+            {
+                throw new Exception("Error setting blurred background: "+Marshal.GetLastWin32Error());
             }
-
-            _w.Show();
-            Owner = _w;
-            _w.Hide();
-
-
-            base.OnActivated(e);
-        }*/
-
-        protected override void OnDeactivated(EventArgs e)
-        {
-            base.OnDeactivated(e);
+            Marshal.FreeHGlobal(accentPtr);*/
+            
+            
         }
 
         private void Office_OnClick(object sender, RoutedEventArgs e)

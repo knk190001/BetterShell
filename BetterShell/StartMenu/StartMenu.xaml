@@ -4,16 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:BetterShell.StartMenu.Controls"
+        xmlns:local="clr-namespace:BetterShell.StartMenu"
         ResizeMode="NoResize"
         WindowStyle="None"
         mc:Ignorable="d"
         Title="Window1" Height="795" Width="885"
         VerticalAlignment="Bottom"
-        AllowsTransparency="True"
-        ShowInTaskbar="False">
-    <Window.Background>
-        <SolidColorBrush Opacity="0.0" Color="White" />
-    </Window.Background>
+        
+        ShowInTaskbar="False"
+        Background="Transparent"
+        local:WindowBlur.IsEnabled="True"
+        >
+    
     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="795">
         <Border Width="60" Height="750" Margin="5,0,0,0" VerticalAlignment="Bottom"
                 Style="{StaticResource DefaultPanel.Style}">

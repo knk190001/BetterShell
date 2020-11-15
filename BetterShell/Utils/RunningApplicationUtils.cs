@@ -238,8 +238,10 @@ namespace BetterShell.Utils
             }
         }
         public static void SetForegroundWindow(IntPtr hwnd){
-            User32.SetForegroundWindow(hwnd);
+            //User32.SetForegroundWindow(hwnd);
             User32.SendMessage(hwnd, User32.WM_SYSCOMMAND, User32.SC_RESTORE, 0);
+            User32.SetActiveWindow(hwnd);
+            User32.SetForegroundWindow(hwnd);
         }
     }
 }

@@ -60,6 +60,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiteDB, Version=5.0.9.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27">
+      <HintPath>..\packages\LiteDB.5.0.9\lib\net45\LiteDB.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SharpVectors.Converters.Wpf, Version=1.6.0.0, Culture=neutral, PublicKeyToken=b532964b8548be77">
       <HintPath>..\packages\SharpVectors.Reloaded.1.6.0\lib\net47\SharpVectors.Converters.Wpf.dll</HintPath>
       <Private>True</Private>
@@ -95,6 +99,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime" />
     <Reference Include="System.Runtime.WindowsRuntime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\System.Runtime.WindowsRuntime\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.WindowsRuntime.dll</HintPath>
     </Reference>
@@ -126,6 +131,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\Taskbar\TaskbarApplication.cs" />
+    <Compile Include="StartMenu\Blur.cs" />
     <Compile Include="StartMenu\Controls\Application.xaml.cs">
       <DependentUpon>Application.xaml</DependentUpon>
     </Compile>
@@ -151,6 +157,8 @@
     <Compile Include="Utils\StartMenuItem.cs" />
     <Compile Include="Utils\SystemUtils.cs" />
     <Compile Include="Utils\Tree.cs" />
+    <Compile Include="Utils\Win32Interop\AccentPolicy.cs" />
+    <Compile Include="Utils\Win32Interop\AccentState.cs" />
     <Compile Include="Utils\Win32Interop\CMINVOKECOMMANDINFO.cs" />
     <Compile Include="Utils\Win32Interop\IShellItemImageFactory.cs" />
     <Compile Include="Utils\Win32Interop\RECT.cs" />
@@ -165,7 +173,10 @@
     <Compile Include="Utils\Win32Interop\SIGDN.cs" />
     <Compile Include="Utils\Win32Interop\SIZE.cs" />
     <Compile Include="Utils\Win32Interop\User32.cs" />
+    <Compile Include="Utils\Win32Interop\WindowCompositionAttribute.cs" />
+    <Compile Include="Utils\Win32Interop\WindowCompositionAttributeData.cs" />
     <Compile Include="Utils\Win32Interop\WINDOWINFO.cs" />
+    <Compile Include="Utils\Win32Interop\WINDOWPOS.cs" />
     <Compile Include="Utils\Window.cs" />
     <Compile Include="Utils\WinRTInterop\ActivateOptions.cs" />
     <Compile Include="Utils\WinRTInterop\ApplicationActivationManager.cs" />
