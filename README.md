@@ -15,4 +15,4 @@ This is a custom shell for windows. It's designed to (eventually) be a drop in r
 - Multimonitor support
 - Plugin support
 
-This project was inspired by the [Cairo SHell](https://cairoshell.com/) project.
+This project was inspired by the [Cairo Shell](https://cairoshell.com/) project.
