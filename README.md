@@ -3,7 +3,7 @@
 This is a custom shell for windows. It's designed to (eventually) be a drop in replacement for the built in windows explorer.
 
 ## How it works
-The shell will kill explorer.exe and replace it with its own ui. Because windows leaves very few capablilities behind private API's it's more a question of how rather than if a feature can be reimplemented.
+The shell will kill explorer.exe and replace it with its own ui. Because windows leaves very few capablilities behind private API's it's more a question of how rather than if a given feature can be reimplemented.
 
 ## Roadmap
 - Working Start menu
