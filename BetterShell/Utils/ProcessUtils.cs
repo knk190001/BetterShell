@@ -11,5 +11,8 @@ namespace BetterShell.Utils
 
         public static readonly IReadOnlyList<ProcessDiagnosticInfo> ProcessDiagnosticInfos =
             ProcessDiagnosticInfo.GetForProcesses();
+        
+        
+        
     }
 }

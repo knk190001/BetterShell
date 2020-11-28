@@ -65,6 +65,13 @@ namespace BetterShell
             SetWindowZOrder();
         }
 
+        protected override void OnActivated(EventArgs e)
+        {
+            var hwnd = new WindowInteropHelper(this).Handle;
+            base.OnActivated(e);
+            User32.SetWindowPos(hwnd, new IntPtr(User32.HWND_BOTTOM), 0, 0, 0, 0,
+                User32.SWP_NOSIZE | User32.SWP_NOMOVE | User32.SWP_NOACTIVATE);
+        }
 
         private void SetWindowZOrder()
         {
@@ -77,20 +84,23 @@ namespace BetterShell
 
         private static IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            
-            if (msg != User32.WM_WINDOWPOSCHANGING || lParam == IntPtr.Zero)
+            if (msg != User32.WM_WINDOWPOSCHANGING)
+            {
+                return  IntPtr.Zero;
+            }
+            if ( lParam == IntPtr.Zero)
             {
                 User32.SetWindowPos(hwnd, new IntPtr(User32.HWND_BOTTOM), 0, 0, 0, 0,
-                    User32.SWP_NOSIZE | User32.SWP_NOMOVE | User32.SWP_NOACTIVATE);
+                    User32.SWP_NOSIZE | User32.SWP_NOMOVE | User32.SWP_NOACTIVATE| User32.SWP_NOZORDER);
                 return IntPtr.Zero;
             }
 
             var windowpos = Marshal.PtrToStructure<WINDOWPOS>(lParam);
 
-            if (windowpos.hwndInsertAfter.ToInt32() == User32.HWND_BOTTOM)
+            /*if (windowpos.hwndInsertAfter.ToInt32() == User32.HWND_BOTTOM)
             {
                 return IntPtr.Zero;
-            }
+            }*/
             
             User32.SetWindowPos(hwnd, new IntPtr(User32.HWND_BOTTOM), 0, 0, 0, 0,
                 User32.SWP_NOSIZE | User32.SWP_NOMOVE | User32.SWP_NOACTIVATE| User32.SWP_NOZORDER);

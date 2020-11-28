@@ -137,6 +137,8 @@ namespace BetterShell.StartMenu
         internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
     }
 
+    
+    
     namespace Native
     {
         internal enum AccentState

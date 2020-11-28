@@ -10,7 +10,7 @@ namespace BetterShell.Controls
         public WindowsButton()
         {
             InitializeComponent();
-            _window = new StartMenu.StartMenu {Left = 0, Top = 225};
+            _window = new StartMenu.StartMenu {Left = 0, Top = 270};
         }
 
         private void StartMenu_OnClick(object sender, RoutedEventArgs e)

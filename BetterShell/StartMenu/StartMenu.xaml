@@ -8,16 +8,14 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         mc:Ignorable="d"
-        Title="Window1" Height="795" Width="885"
+        Title="Window1" Height="750" Width="885"
         VerticalAlignment="Bottom"
-        
-        ShowInTaskbar="False"
         Background="Transparent"
+        ShowInTaskbar="False"
         local:WindowBlur.IsEnabled="True"
         >
-    
-    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="795">
-        <Border Width="60" Height="750" Margin="5,0,0,0" VerticalAlignment="Bottom"
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="750">
+        <Border Width="60" Height="750" Margin="5,0,0,0" VerticalAlignment="Bottom" Name = "temp"
                 Style="{StaticResource DefaultPanel.Style}">
             <Grid>
                 <Grid.RowDefinitions>
@@ -41,7 +39,7 @@
             </Grid>
         </Border>
         <controls:AppList />
-        <StackPanel Height="795" Margin="5,0,0,0">
+        <StackPanel Height="750" Margin="5,0,0,0">
             <controls:UserPanel />
             <Border Width="490" Height="205" Background="Black" Margin="0,5,0,0" CornerRadius="3">
                 <Grid Width="440">
