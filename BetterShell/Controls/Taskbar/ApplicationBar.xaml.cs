@@ -32,17 +32,20 @@ namespace BetterShell.Controls
 
                 if (ContainsIdentifier(id, out var app))
                 {
+                    app.HWNDs.Add(applications[i].hwnd);
                     app.Count++;
                     continue;
                 }
 
-                Add(new TaskbarApplication()
+                var taskbarApplication = new TaskbarApplication()
                 {
                     Count = 1,
                     Icon = iconsTask[i],
                     Identifier = RunningApplicationUtils.GetIdentifier(applications[i]),
-                    HWND = applications[i].hwnd
-                });
+                };
+                taskbarApplication.HWNDs.Add(applications[i].hwnd);
+                Add(taskbarApplication);
+                
             }
         }
 
@@ -51,17 +54,6 @@ namespace BetterShell.Controls
             wrapperIfAny = this.FirstOrDefault(wrapper => wrapper.Identifier == id);
             return wrapperIfAny != null;
         }
-        
-        
-        
-
-        
-
-        
-
-
-        
-
         // ReSharper disable IdentifierTypo
     }
 }

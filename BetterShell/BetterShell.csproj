@@ -146,6 +146,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="XamlSpy, Version=3.0.0.0, Culture=neutral, PublicKeyToken=bc9b0c37bf06c6a9">
+      <HintPath>..\packages\XamlSpyLibs.3.0.5\lib\net46\XamlSpy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -153,7 +157,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\Taskbar\TaskbarApplication.cs" />
-    <Compile Include="StartMenu\Blur.cs" />
     <Compile Include="StartMenu\Controls\Application.xaml.cs">
       <DependentUpon>Application.xaml</DependentUpon>
     </Compile>
@@ -169,11 +172,15 @@
     <Compile Include="StartMenu\StartMenu.xaml.cs">
       <DependentUpon>StartMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TaskbarHoverWindow\TaskbarHoverWindow.xaml.cs">
+      <DependentUpon>TaskbarHoverWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\App.cs" />
     <Compile Include="Utils\ApplicationExecutor.cs" />
     <Compile Include="Utils\ApplicationUtils.cs" />
     <Compile Include="Utils\Converters\StringToUpperConverter.cs" />
     <Compile Include="Utils\FileObject.cs" />
+    <Compile Include="Utils\HWNDList.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\RunningApplicationUtils.cs" />
     <Compile Include="Utils\StartMenuItem.cs" />
@@ -266,6 +273,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TaskbarHoverWindow\TaskbarHoverWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

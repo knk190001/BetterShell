@@ -91,19 +91,19 @@ namespace BetterShell
             if ( lParam == IntPtr.Zero)
             {
                 User32.SetWindowPos(hwnd, new IntPtr(User32.HWND_BOTTOM), 0, 0, 0, 0,
-                    User32.SWP_NOSIZE | User32.SWP_NOMOVE | User32.SWP_NOACTIVATE| User32.SWP_NOZORDER);
+                    User32.SWP_NOSIZE | User32.SWP_NOMOVE | User32.SWP_NOACTIVATE);
                 return IntPtr.Zero;
             }
 
             var windowpos = Marshal.PtrToStructure<WINDOWPOS>(lParam);
 
-            /*if (windowpos.hwndInsertAfter.ToInt32() == User32.HWND_BOTTOM)
+            if (windowpos.hwndInsertAfter.ToInt32() == User32.HWND_BOTTOM)
             {
                 return IntPtr.Zero;
-            }*/
+            }
             
             User32.SetWindowPos(hwnd, new IntPtr(User32.HWND_BOTTOM), 0, 0, 0, 0,
-                User32.SWP_NOSIZE | User32.SWP_NOMOVE | User32.SWP_NOACTIVATE| User32.SWP_NOZORDER);
+                User32.SWP_NOSIZE | User32.SWP_NOMOVE | User32.SWP_NOACTIVATE);
 
 
             return IntPtr.Zero;

@@ -29,12 +29,11 @@ namespace BetterShell.StartMenu
         {
             InitializeComponent();
             _applicationActivationManager = new ApplicationActivationManager();
-            EnableBlur();
         }
 
         private void EnableBlur()
         {
-            /*var windowHelper = new WindowInteropHelper(this);
+            var windowHelper = new WindowInteropHelper(this);
             var accent = new AccentPolicy();
             var accentSize = Marshal.SizeOf(accent);
             
@@ -57,7 +56,7 @@ namespace BetterShell.StartMenu
             {
                 throw new Exception("Error setting blurred background: "+Marshal.GetLastWin32Error());
             }
-            Marshal.FreeHGlobal(accentPtr);*/
+            Marshal.FreeHGlobal(accentPtr);
             
             
         }
@@ -144,6 +143,7 @@ namespace BetterShell.StartMenu
             base.OnSourceInitialized(e);
             if (Application.Current.MainWindow != null) Left = Application.Current.MainWindow.Left;
             
+            EnableBlur();
             SetHrgn();
         }
         
